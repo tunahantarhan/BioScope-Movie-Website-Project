@@ -220,6 +220,12 @@
          padding: 0px;
          margin: 0px;
     }
+     .navbar-brand img{
+         transition: scale 0.2s ease-out;
+     }
+     .navbar-brand img:hover{
+         scale: 1.1;
+     }
      .cover-slides h1{
          font-size: 28px;
     }

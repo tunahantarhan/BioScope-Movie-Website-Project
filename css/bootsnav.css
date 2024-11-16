@@ -985,11 +985,12 @@ nav.navbar.bootsnav ul.dropdown-menu.megamenu-content .content ul.menu-col li a:
 
 @media (max-width: 992px) {
     /* Navbar Responsive
-    =================================*/ 
+    =================================*/
     nav.navbar.bootsnav .navbar-brand    {
-        display: inline-block;
-        float: none !important;
-        margin: 0 !important;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        flex-direction: row;
     }
     
     nav.navbar.bootsnav .navbar-header {
