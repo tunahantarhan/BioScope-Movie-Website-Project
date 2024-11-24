@@ -1635,7 +1635,7 @@
      position: absolute;
      top: 0;
      left: 0;
-     transition: all 0.5s ease 0s;
+     transition: all 0.2s ease 0s;
 }
  .service-block-inner::after {
      content: "";
@@ -1647,7 +1647,7 @@
      top: 0;
      left: 0;
 	 z-index: -1;
-     transition: all 0.5s ease 0s;
+     transition: all 0.2s ease 0s;
 }
  .service-block-inner h3 {
      font-size: 24px;
@@ -1666,19 +1666,19 @@
 
 .service-block-inner:hover h3{
 	color: #ffffff;
-	transition: all 0.5s ease 0s;
+	transition: all 0.2s ease 0s;
 }
 
 .service-block-inner:hover p{
 	color: #ffffff;
-	transition: all 0.5s ease 0s;
+	transition: all 0.2s ease 0s;
 }
 
  .our-team{
      box-shadow: 0 0 0 rgba(0, 0, 0, 0.3);
      overflow: hidden;
      position: relative;
-     transition: all 0.3s ease 0s;
+     transition: all 0.2s ease 0s;
 }
  .our-team:hover{
      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -1686,7 +1686,7 @@
  .our-team img{
      width: 100%;
      height: 300px;
-     transition: all 0.3s ease-in-out 0s;
+     transition: all 0.2s ease-in-out 0s;
 }
  .our-team:hover img{
      opacity: 0.5;
@@ -1700,7 +1700,7 @@
 	 background: #ffffff;
 	 padding-left: 55px;
 	 width: 100%;
-     transition: all 0.3s ease 0s;
+     transition: all 0.2s ease 0s;
 }
  .our-team .title{
      display: block;
@@ -1722,7 +1722,7 @@
      position: absolute;
      bottom: 35px;
 	 right: 0px;
-     transition: all 0.3s ease 0s;
+     transition: all 0.2s ease 0s;
 }
  .our-team:hover .social{
      opacity: 1;
@@ -1741,7 +1741,7 @@
      opacity: 0.9;
      position: relative;
      transform: translate(35px, -35px);
-     transition: all 0.3s ease-in-out 0s 
+     transition: all 0.2s ease-in-out 0s
 }
  .our-team .social li a:hover{
      width: 35px;
@@ -1769,15 +1769,12 @@
      opacity: 1;
 }
  .hover-team:hover .social li:nth-child(1) a{
-     transition-delay: 0.3s;
-}
- .hover-team:hover .social li:nth-child(2) a{
      transition-delay: 0.2s;
 }
- .hover-team:hover .social li:nth-child(3) a{
+ .hover-team:hover .social li:nth-child(2) a{
      transition-delay: 0.1s;
 }
- .hover-team:hover .social li:nth-child(4) a{
+ .hover-team:hover .social li:nth-child(3) a{
      transition-delay: 0.0s;
 }
  .hover-team:hover .social li a{
