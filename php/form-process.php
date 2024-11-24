@@ -30,9 +30,8 @@ if (empty($_POST["message"])) {
     $message = $_POST["message"];
 }
 
-
-$EmailTo = "armanmia7@gmail.com";
-$Subject = "New Message Received";
+$EmailTo = "tunahantarhan99@gmail.com";
+$Subject = "BioScope Movie Kullanıcı Geribildirimi";
 
 // prepare email body text
 $Body = "";

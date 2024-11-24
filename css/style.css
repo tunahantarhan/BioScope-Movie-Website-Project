@@ -425,7 +425,7 @@
          position: relative;
      }
      nav.navbar .navbar-brand img.logo{
-         width: 150px;
+         width: 200px;
          margin-top: -8px;
          margin-left: 20px;
          transition: scale 0.2s ease-out;
@@ -538,10 +538,7 @@
      font-size: 16px;
      color: #dbcf61;
 	 text-transform: uppercase;
-     padding-top: 10px;
-     padding-bottom: 10px;
-     padding-left: 10px;
-     padding-right: 30px;
+     padding: 10px;
      transition: background-color 0.5s ease, color 0.5s ease, border 0.5s ease;
 }
  nav.navbar.bootsnav ul.nav li.active > a{
@@ -625,7 +622,7 @@
          border-top: solid 1px #222;
     }
      nav.navbar .navbar-brand img.logo{
-         width: 150px;
+         width: 200px;
          margin-top: 0px;
          margin-left: 20px;
      }
@@ -1544,7 +1541,7 @@
 }
 /*------------------------------------------------------------------ All Pages -------------------------------------------------------------------*/
  .all-title-box{
-     background: url("../images/all-bg-title.jpg") no-repeat center center;
+     background: url("../images/leon-the-professional.jpg") no-repeat center center fixed;
      -webkit-background-size: cover;
      -moz-background-size: cover;
      -ms-background-size: cover;
@@ -1568,9 +1565,10 @@
  .all-title-box h2{
      font-size: 28px;
      font-weight: 700;
-     color: #ffffff;
+     color: #454545;
+     background-color: #dbcf61;
 	 float: left;
-     padding: 10px 0px;
+     padding: 10px 10px;
 }
  .all-title-box .breadcrumb{
      background: #dbcf61;
@@ -1585,7 +1583,7 @@
      font-size: 16px;
 }
  .all-title-box .breadcrumb li a{
-     color: #ffffff;
+     color: #454545;
      font-size: 16px;
 }
  .all-title-box .breadcrumb-item + .breadcrumb-item::before{
@@ -1687,7 +1685,7 @@
 }
  .our-team img{
      width: 100%;
-     height: auto;
+     height: 300px;
      transition: all 0.3s ease-in-out 0s;
 }
  .our-team:hover img{
@@ -1708,7 +1706,7 @@
      display: block;
      font-size: 20px;
      font-weight: 700;
-     margin: 0 0 7px 0;
+     margin: 7px 0 7px 0;
 }
  .our-team .post{
      display: block;

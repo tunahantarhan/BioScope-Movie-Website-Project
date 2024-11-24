@@ -49,13 +49,13 @@
                         </select>
                     </div>
                     <div class="right-phone-box">
-                        <p>BİZİ ARAYIN : <a href="#"> +90 555 123 45 67</a></p>
+                        <p><b>BİZİ ARAYIN : </b><a href="#">+90 555 123 45 67</a></p>
                     </div>
                     <div class="our-link">
                         <ul>
                             <li><a href="my-account.html"><i class="fa fa-user s_color"></i> Hesabım</a></li>
-                            <li><a href="#"><i class="fas fa-location-arrow"></i> Adresimiz</a></li>
-                            <li><a href="contact-us.html"><i class="fas fa-headset"></i> Bize Ulaşın</a></li>
+                            <li><a href="#"><i class="fas fa-location-arrow"></i> ADRESİMİZ</a></li>
+                            <li><a href="contact-us.html"><i class="fas fa-headset"></i> İLETİŞİM</a></li>
                         </ul>
                     </div>
                 </div>
@@ -112,20 +112,20 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="index.html"><img src="images/logo.png" class="logo" alt=""></a>
+                    <a class="navbar-brand" href="index.html"><img id="navbar-logo" src="images/logo.png" class="logo" alt=""></a>
                 </div>
                 <!-- End Header Navigation -->
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Anasayfa</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="about.html">Hakkımızda</a></li>
-                        <li class="nav-item"><a class="nav-link" href="gallery.html">Galeri</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="about.html">HAKKIMIZDA</a></li>
+                        <li class="nav-item"><a class="nav-link" href="mission-vision.html">MİSYON / VİZYON</a></li>
                         <li class="dropdown">
-                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Sayfalar</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">ÜRÜNLERİMİZ ▼</a>
                             <ul class="dropdown-menu">
-                                <li><a href="shop.html">Ürünler</a></li>
+                                <li><a href="gallery.html">Ürün Galerisi</a></li>
+                                <li><a href="shop.html">Ürün Alışverişi</a></li>
                                 <li><a href="shop-detail.html">Alışveriş Detayı</a></li>
                                 <li><a href="cart.html">Sepet</a></li>
                                 <li><a href="checkout.html">Ödeme</a></li>
@@ -133,7 +133,14 @@
                                 <li><a href="wishlist.html">İstek Listesi</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="contact-us.html">Bize Ulaşın</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">BİRİMLERİMİZ ▼</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="contact-us.html">Bizi Değerlendirin</a></li>
+                                <li><a href="shipping-gallery.html">Anlaşmalı Kargo Firmaları</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="contact-us.html">İLETİŞİM</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -147,34 +154,6 @@
                 </div>
                 <!-- End Atribute Navigation -->
             </div>
-            <!-- Start Side Menu -->
-            <div class="side">
-                <a href="#" class="close-side"><i class="fa fa-times"></i></a>
-                <li class="cart-box">
-                    <ul class="cart-list">
-                        <li>
-                            <a href="#" class="photo"><img src="images/img-pro-01.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Delica omtantur </a></h6>
-                            <p>1x - <span class="price">$80.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="images/img-pro-02.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Omnes ocurreret</a></h6>
-                            <p>1x - <span class="price">$60.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="images/img-pro-03.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Agam facilisis</a></h6>
-                            <p>1x - <span class="price">$40.00</span></p>
-                        </li>
-                        <li class="total">
-                            <a href="#" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                            <span class="float-right"><strong>Total</strong>: $180.00</span>
-                        </li>
-                    </ul>
-                </li>
-            </div>
-            <!-- End Side Menu -->
         </nav>
         <!-- End Navigation -->
     </header>
@@ -197,9 +176,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>ABOUT US</h2>
+                    <h2>HAKKIMIZDA</h2>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Anasayfa</a></li>
+                        <li class="breadcrumb-item"><a href="index.html"><u>Anasayfa</u></a></li>
                         <li class="breadcrumb-item active">Hakkımızda</li>
                     </ul>
                 </div>
@@ -213,48 +192,58 @@
         <div class="container">
             <div class="row">
 				<div class="col-lg-6">
-                    <div class="banner-frame"> <img class="img-fluid" src="images/about-img.jpg" alt="" />
+                    <div class="banner-frame"> <img class="img-fluid" src="images/joey-bioscope.png" alt="" />
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <h2 class="noo-sh-title-top">We are <span>Freshshop</span></h2>
-                    <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                        voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
-                        sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-                        Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-					<a class="btn hvr-hover" href="#">Read More</a>
+                    <h2 class="noo-sh-title-top">NEDİR BU <span style="background-color: black; color: #dbcf61; padding: 10px">BioScope Movie</span> ?</h2>
+                    <p><br>BioScope Movie, film tutkunlarının vazgeçilmez adresi! En kült yapımlardan en yeni hitlere kadar,
+                        sinemaseverleri hayalini kurdukları filmlerle fiziksel formatta (DVD, Blu-ray ve daha fazlası)
+                        buluşturup, kapınıza kadar teslim edilmesini sağlarız. Biz, sadece bir film satıcısı değiliz;
+                        aynı zamanda sinema dünyasının büyüsüne kapılan herkes için bir köprü, bir zaman makinesiyiz.
+                        Sadece "şu an" değil, "geçmişin klasiklerinden geleceğin başyapıtlarına" her dönemin unutulmaz
+                        eserlerine ulaşmanıza yardımcı oluyoruz.</p>
+                    <p>Yılın her döneminde en yeni çıkan filmleri ve en popüler yapımları kolayca bulabileceğiniz sitemizde,
+                        sadece alışveriş yapmakla kalmaz, sinema dünyasına dair keyifli keşifler de yaparsınız.
+                        Kendi film koleksiyonunuzu oluştururken aynı zamanda kült filmleri yeniden keşfetmek hiç bu
+                        kadar kolay olmamıştı </p>
+                    <p>Her sipariş, özenle paketlenir ve hızlıca kapınıza teslim edilir.
+                        Bizim için sinema, sadece izlemek değil; bir deneyim, bir yaşam biçimidir.
+                        BioScope Movie ile her film bir yolculuktur!</p>
+					<a class="btn hvr-hover" href="gallery.html">ÜRÜN GALERİSİNİ İNCELE</a>
                 </div>
             </div>
             <div class="row my-5">
                 <div class="col-sm-6 col-lg-4">
                     <div class="service-block-inner">
-                        <h3>We are Trusted</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                        <h3>SİNEFİL</h3>
+                        <p>Sinefiller tarafından elle seçilmiş, kaliteli sinematografili ikonik ve bağımsız filmler!</p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-4">
                     <div class="service-block-inner">
-                        <h3>We are Professional</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                        <h3>GÜVENİLİR</h3>
+                        <p>Her geçen gün daha da artan müşteri memnuniyeti ve siparişler ile güvenilir bir şekilde filmlere
+                        ulaşın!</p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-4">
                     <div class="service-block-inner">
-                        <h3>We are Expert</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                        <h3>UZMAN</h3>
+                        <p>Uzun yıllardır sektörün nabzını tutan BioScope Movie, sinemaseverlerin filmlere
+                            ulaşımının birinci yolu!</p>
                     </div>
                 </div>
             </div>
             <div class="row my-4">
                 <div class="col-12">
-                    <h2 class="noo-sh-title">Meet Our Team</h2>
+                    <h2 class="noo-sh-title"><span style="background-color: black; color: #dbcf61; padding: 10px">BioScope Movie</span> Hakkında Ne Dediler?</h2>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="hover-team">
                         <div class="our-team"> <img src="images/img-1.jpg" alt="" />
                             <div class="team-content">
-                                <h3 class="title">Williamson</h3> <span class="post">Web Developer</span> </div>
+                                <h3 class="title">SCORSESE</h3> <span class="post">Martin Scorsese</span> </div>
                             <ul class="social">
                                 <li>
                                     <a href="#" class="fab fa-facebook"></a>
@@ -272,7 +261,7 @@
                             <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
                         </div>
                         <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
+                            <p>"BioScope Movie sinemada klasik tat ile yeni nesil sinema takipçiliğini birleştiren benzersiz bir oluşum!"</p>
                         </div>
                         <hr class="my-0"> </div>
                 </div>
@@ -280,7 +269,7 @@
                     <div class="hover-team">
                         <div class="our-team"> <img src="images/img-2.jpg" alt="" />
                             <div class="team-content">
-                                <h3 class="title">Kristiana</h3> <span class="post">Web Developer</span> </div>
+                                <h3 class="title">TARANTİNO</h3> <span class="post">Quentin Tarantino</span> </div>
                             <ul class="social">
                                 <li>
                                     <a href="#" class="fab fa-facebook"></a>
@@ -298,7 +287,7 @@
                             <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
                         </div>
                         <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
+                            <p>"Sinemaya ulaşmada klasik akım ile modernliği harmanlayan keyifli bir yaklaşım!"</p>
                         </div>
                         <hr class="my-0"> </div>
                 </div>
@@ -306,7 +295,7 @@
                     <div class="hover-team">
                         <div class="our-team"> <img src="images/img-3.jpg" alt="" />
                             <div class="team-content">
-                                <h3 class="title">Steve Thomas</h3> <span class="post">Web Developer</span> </div>
+                                <h3 class="title">KUBRİCK</h3> <span class="post">Stanley Kubrick</span> </div>
                             <ul class="social">
                                 <li>
                                     <a href="#" class="fab fa-facebook"></a>
@@ -324,15 +313,15 @@
                             <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
                         </div>
                         <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
+                            <p>"BioScope Movie oluşumu sinema sektörüne en az filmlerim kadar dokundu."</p>
                         </div>
                         <hr class="my-0"> </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="hover-team">
-                        <div class="our-team"> <img src="images/img-1.jpg" alt="" />
+                        <div class="our-team"> <img src="images/img-4.jpg" alt="" />
                             <div class="team-content">
-                                <h3 class="title">Williamson</h3> <span class="post">Web Developer</span> </div>
+                                <h3 class="title">NBC</h3> <span class="post">Nuri Bilge Ceylan</span> </div>
                             <ul class="social">
                                 <li>
                                     <a href="#" class="fab fa-facebook"></a>
@@ -350,7 +339,7 @@
                             <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
                         </div>
                         <div class="team-description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna diam, maximus ut ullamcorper quis, placerat id eros. Duis semper justo sed condimentum rutrum. Nunc tristique purus turpis. Maecenas vulputate. </p>
+                            <p>"Harika."</p>
                         </div>
                         <hr class="my-0"> </div>
                 </div>
