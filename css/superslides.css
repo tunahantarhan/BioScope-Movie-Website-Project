@@ -36,6 +36,11 @@
 .slides-navigation a.next {
   right: 0;
 }
+@media (max-width: 875px) {
+  .slides-navigation{
+    display: none;
+  }
+}
 
 .slides-pagination {
   position: absolute;

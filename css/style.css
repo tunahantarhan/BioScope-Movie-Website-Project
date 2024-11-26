@@ -34,7 +34,7 @@
 -------------------------------------------------------------------*/
  body {
      color: #454545;
-     font-size: 15px;
+     font-size: 18px;
      font-family: 'Dosis', sans-serif;
      line-height: 1.80857;
 }
@@ -1208,7 +1208,7 @@
 /*------------------------------------------------------------------ Instagram Feed -------------------------------------------------------------------*/
  .instagram-box{
      padding: 70px 0px;
-     background: url(../images/ins-bg.jpg) no-repeat center center;
+     background: url(../images/birdman.jpg) no-repeat center center;
      background-size: auto auto;
      -webkit-background-size: cover;
      -moz-background-size: cover;
@@ -1604,8 +1604,9 @@
      text-transform: uppercase;
      font-style: normal;
      font-weight: 700;
-	 margin-top: 30px
+	 margin-top: 30px;
 }
+
  .about-box-main p{
      padding-bottom: 20px;
 }
@@ -1685,9 +1686,53 @@
 }
  .our-team img{
      width: 100%;
-     height: 300px;
+     height: 320px;
      transition: all 0.2s ease-in-out 0s;
 }
+@media (max-width: 1198px){
+    p{
+        font-size: 18px;
+    }
+    .service-block-inner p{
+        font-size: 16px;
+    }
+    .our-team img{
+        height: 280px;
+    }
+}
+@media (max-width: 990px){
+    p{
+        font-size: 23px;
+    }
+    .service-block-inner p{
+        font-size: 18px;
+    }
+    .our-team img{
+        height: 400px;
+    }
+}
+@media (max-width: 769px){
+    p{
+        font-size: 23px;
+    }
+    .service-block-inner p{
+        font-size: 18px;
+    }
+    .our-team img{
+        height: 320px;
+    }
+}
+ @media (max-width: 576px){
+     p{
+         font-size: 20px;
+     }
+     .service-block-inner p{
+         font-size: 18px;
+     }
+     .our-team img{
+         height: 550px;
+     }
+ }
  .our-team:hover img{
      opacity: 0.5;
 }
@@ -2405,8 +2450,20 @@
 }
  .contact-info-left{
      padding: 20px;
-     background: url(../images/contact-bg.jpg) no-repeat center;
+     background: url(../images/birdman.jpg) no-repeat center;
 	 background-size: cover;
+     border: 4px solid #dbcf61;
+}
+ @media (max-width: 1200px){
+     .contact-info-left{
+         width: 350px;
+     }
+ }
+@media (max-width: 991px){
+    .contact-info-left{
+        margin-top: 50px;
+        width: 100%;
+    }
 }
  .contact-info-left h2{
      font-size: 22px;
@@ -2420,7 +2477,7 @@
 }
  .contact-info-left ul li p{
      font-size: 16px;
-     color: #222222;
+     color: #dbcf61;
      font-weight: 300;
      padding-right: 16px;
      padding-left: 25px;
@@ -2432,10 +2489,10 @@
      left: 0;
      top: 5px;
      padding-right: 6px;
-     color: #dbcf61;
-}
+ }
  .contact-info-left ul li p a:hover{
-     color: #dbcf61;
+     color: black;
+     background: #000000;
 }
  .contact-form-right{
      padding: 20px;
@@ -2448,7 +2505,7 @@
      margin-bottom: 15px;
 }
  .contact-form-right .form-group .form-control::-moz-placeholder{
-     color: #999999;
+     color: #656565;
 }
  .contact-form-right .form-group .form-control{
      border-radius: 0px;
