@@ -1,3 +1,3 @@
-function reklamTalep() {
-    alert("Reklam ve işbirliği talebiniz için iletişim e-postanız alındı. En kısa zamanda size bu e-posta üzerinden ulaşacağız.");
+function abonelikTalep() {
+    alert("E-postanız listemize eklendi. Artık yeniliklerden en hızlı şekilde haberdar olacaksınız! E-postanızı kontrol etmeyi unutmayın! ");
 }

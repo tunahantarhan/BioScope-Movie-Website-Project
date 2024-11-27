@@ -1606,6 +1606,11 @@
      font-weight: 700;
 	 margin-top: 30px;
 }
+@media (max-width: 992px){
+    .noo-sh-title-top{
+        margin-top: 60px;
+    }
+}
 
  .about-box-main p{
      padding-bottom: 20px;
