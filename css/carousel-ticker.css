@@ -1,5 +1,7 @@
 
 .carouselTicker {
+  display: flex;
+  justify-content: right;
   overflow: hidden;
   float: none;
   -webkit-user-select: none;
