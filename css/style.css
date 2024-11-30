@@ -1551,9 +1551,16 @@
      background-size: cover;
      text-align: center;
      background-attachment: fixed;
-     padding: 70px 0px;
+     padding: 70px 0;
      position: relative;
 }
+
+ @media (max-width: 600px) {
+     .all-title-box{
+         background: url("../images/leon-the-professional.jpg") right fixed;
+         padding: 40px 0;
+     }
+ }
  .all-title-box::before{
      background: rgba(0,0,0,0.6);
      content: "";
@@ -1574,11 +1581,15 @@
 }
  .all-title-box .breadcrumb{
      background: #dbcf61;
-     margin: 0px;
      display: inline-block;
-     border-radius: 0px;
 	 float: right;
+     border-radius: 0;
 }
+ @media (max-width: 600px){
+     .all-title-box .breadcrumb{
+         margin-top: 15px;
+     }
+ }
  .all-title-box .breadcrumb li{
      display: inline-block;
      color: #000000;
@@ -1610,7 +1621,7 @@
 }
 @media (max-width: 992px){
     .noo-sh-title-top{
-        margin-top: 60px;
+        margin-top: 90px;
     }
 }
 
@@ -1657,6 +1668,7 @@
 	 z-index: -1;
      transition: all 0.2s ease 0s;
 }
+
  .service-block-inner h3 {
      font-size: 24px;
      text-transform: uppercase;
@@ -1738,6 +1750,17 @@
      }
      .our-team img{
          height: 550px;
+     }
+ }
+@media (max-width: 380px){
+     p{
+         font-size: 24px;
+     }
+     .service-block-inner p{
+         font-size: 20px;
+     }
+     .our-team img{
+         height: 400px;
      }
  }
  .our-team:hover img{

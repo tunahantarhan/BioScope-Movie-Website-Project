@@ -149,9 +149,9 @@
     <div class="all-title-box">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12 col-page-header">
                     <h2>MİSYON / VİZYON</h2>
-                    <ul class="breadcrumb">
+                    <ul class="breadcrumb col-page-header-breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><u>Anasayfa</u></a></li>
                         <li class="breadcrumb-item active">Hakkımızda</li>
                     </ul>
@@ -165,18 +165,20 @@
     <div class="about-box-main">
         <div class="container">
             <div class="row">
-
-                <div class="col-lg-6" style="margin-top: -30px">
-                    <h2 class="noo-sh-title-top" style="display: flex; justify-content: space-between; margin-bottom: 20px"><span style="background-color: black; color:#dbcf61; padding: 6px; padding-right: 20px; padding-top: 12px"><img src="images/popcorn.png" style="height: 40px; padding-bottom: 5px"/> MİSYONUMUZ </span><span style="padding: 0 4px 0 8px"> </span><span style="background-color: black; color:#dbcf61; padding: 6px; padding-left: 20px; padding-top: 12px"><img src="images/cinema.png" style="height: 40px"/> VİZYONUMUZ</span></h2>
-                    <div style="display:flex; justify-content: space-between">
-                        <p>
+                <div class="col-lg-6" id="mission-vision-cols" style="display: block;">
+                    <div style="width: 100%; height: 50%; border: 5px double #454545; padding: 8px">
+                        <h2 style="display:flex; background: black; color: #dbcf61; width: fit-content; padding: 10px; align-items: center"><img src="images/popcorn.png" style="height: 25px; margin-right: 10px"><b>MİSYON</b></h2>
+                        <p style="margin-top: 10px">
                             BioScope Movie olarak, sinemanın büyülü dünyasını evlerinize taşıyoruz.
                             Misyonumuz, en ikonik ve kült filmlerden bağımsız sanat filmlerine kadar geniş bir
                             yelpazede, her türden sinemaseverin tutkularına hitap eden fiziksel film koleksiyonlarını
                             sizlere sunmaktır. Sadece bir satış platformu değil, aynı zamanda sinema kültürünü yaşatan
                             bir buluşma noktası olmayı hedefliyoruz.
                         </p>
-                        <p style="text-align: right">
+                    </div>
+                    <div style="width: 100%; height: 50%; justify-items: right; border: 5px double #454545; padding: 8px;">
+                        <h2 style="display:flex; background: black; color: #dbcf61; width: fit-content; padding: 10px; align-items: center"><img src="images/cinema.png" style="height: 25px; margin-right: 10px"><b>VİZYON</b></h2>
+                        <p style="margin-top: 10px; text-align: right">
                             Sinemaseverler için sadece bir alışveriş deneyimi değil, aynı zamanda bir ilham kaynağı
                             olmak. BioScope Movie, dünya çapında sinema tutkunlarının tercih ettiği, güvenilir ve
                             kaliteli bir film satış platformu olarak öncü olmayı vizyon edinmiştir. Amacımız, her film
@@ -186,7 +188,8 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="banner-frame"> <img class="img-fluid" src="images/a-trip-to-the-moon.jpg" alt="" />
+                    <div class="banner-frame" style="height: 100%;">
+                        <img class="img-fluid" src="images/a-trip-to-the-moon.jpg" alt="a-trip-to-the-moon"/>
                     </div>
                 </div>
             </div>
@@ -313,5 +316,4 @@
     <script src="js/self.js"></script>
     </div>
 </body>
-
 </html>
