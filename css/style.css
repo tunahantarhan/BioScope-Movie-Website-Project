@@ -176,6 +176,11 @@
  .main-top a, li, p{
      color: #454545;
  }
+
+ .instagram-box p, h2{
+     color: white;
+ }
+
  .custom-select-box{
      float: left;
      width: 95px;
@@ -1209,7 +1214,7 @@
 }
 /*------------------------------------------------------------------ Instagram Feed -------------------------------------------------------------------*/
  .instagram-box{
-     padding: 70px 0px;
+     padding: 40px 0px;
      background: url(../images/birdman.jpg) no-repeat center center;
      background-size: auto auto;
      -webkit-background-size: cover;
@@ -1220,7 +1225,6 @@
      position: relative;
 }
  .instagram-box::before{
-     background: rgba(0,0,0,0.9);
      width: 100%;
      height: 100%;
      left: 0px;
@@ -1271,9 +1275,10 @@
 }
  .main-instagram.owl-carousel .owl-nav button.owl-next:hover, .main-instagram.owl-carousel .owl-nav button.owl-prev:hover{
      background: #dbcf61;
-}
+ }
  .ins-inner-box{
      position: relative;
+     height: 250px;
 }
  .hov-in{
      opacity: 0;
@@ -1303,10 +1308,6 @@
 }
  .hov-in a i:hover{
      color: #ffffff;
-}
- .ins-inner-box:hover .hov-in{
-     bottom: 0;
-     opacity: 1;
 }
 /*------------------------------------------------------------------ Footer Main -------------------------------------------------------------------*/
  .footer-main{
@@ -1543,21 +1544,21 @@
 }
 /*------------------------------------------------------------------ All Pages -------------------------------------------------------------------*/
  .all-title-box{
+     background-size: cover;
+     text-align: center;
      background: url("../images/leon-the-professional.jpg") no-repeat center center fixed;
+     padding: 90px 0;
+     position: relative;
      -webkit-background-size: cover;
      -moz-background-size: cover;
      -ms-background-size: cover;
      -o-background-size: cover;
      background-size: cover;
-     text-align: center;
      background-attachment: fixed;
-     padding: 70px 0;
-     position: relative;
 }
 
  @media (max-width: 600px) {
      .all-title-box{
-         background: url("../images/leon-the-professional.jpg") right fixed;
          padding: 40px 0;
      }
  }
@@ -1570,6 +1571,7 @@
      height: 100%;
      left: 0px;
      top: 0px;
+     filter: blur(60px);
 }
  .all-title-box h2{
      font-size: 28px;

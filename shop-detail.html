@@ -70,6 +70,9 @@
                 if (snapshot.exists()) {
                     const productData = snapshot.val();
 
+                    document.getElementById("product-all-title-box").style.background = `url("${productData["image-url-1"]}") no-repeat center center fixed`;
+                    document.getElementById("product-all-title-box").style.backgroundSize = "cover";
+
                     // Carousel görsellerini doldur
                     document.getElementById('image-url').src = productData['image-url'];
                     document.getElementById('image-url-2').src = productData['image-url-1'];
@@ -212,7 +215,7 @@
     <!-- End Main Top -->
 
     <!-- Start All Title Box -->
-    <div class="all-title-box">
+    <div class="all-title-box" id="product-all-title-box">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-page-header">
