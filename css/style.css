@@ -952,6 +952,10 @@
      cursor: pointer;
      padding: 5px 30px;
      font-size: 18px;
+     transition: background 0.35s ease;
+}
+ .filter-button-group button:hover{
+     background: #756f36;
 }
  .filter-button-group button.active{
      background: #000000;
