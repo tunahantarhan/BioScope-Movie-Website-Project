@@ -32,6 +32,79 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <!-- Firebase Config -->
+    <script type="module">
+        // Firebase modüllerini import et
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyB2Bl4_rYPPRirjjFqkbXQdGD50HrN77Rc",
+            authDomain: "bioscope-movie.firebaseapp.com",
+            databaseURL: "https://bioscope-movie-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "bioscope-movie",
+            storageBucket: "bioscope-movie.firebasestorage.app",
+            messagingSenderId: "1058421795792",
+            appId: "1:1058421795792:web:bc1de8b3e5ce6839cee7d5",
+            measurementId: "G-CDY4KPPX2G"
+        };
+
+        // Firebase'i başlat
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // URL'den query parametresini al
+        function getQueryParameter(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param); // Parametre değerini döndür
+        }
+
+        async function fetchProductDetailsByQuery() {
+            const productKey = getQueryParameter('product'); // URL'den 'product' parametresini al
+            if (!productKey) {
+                console.error("Ürün anahtarı URL'de bulunamadı.");
+                return;
+            }
+
+            const productRef = ref(database, 'products/' + productKey);
+
+            try {
+                const snapshot = await get(productRef);
+                if (snapshot.exists()) {
+                    const productData = snapshot.val();
+
+                    // Carousel görsellerini doldur
+                    document.getElementById('image-url').src = productData['image-url'];
+
+                    // Ürün detaylarını doldur
+                    document.getElementById('product-name').innerText = productData.name;
+                    document.getElementById('price').innerText = productData.price;
+                    document.getElementById('description').innerText = productData.description;
+                } else {
+                    console.error("Ürün verisi bulunamadı.");
+                }
+            } catch (error) {
+                console.error("Veri çekilirken hata oluştu:", error);
+            }
+        }
+
+        // Fonksiyonu çalıştır
+        fetchProductDetailsByQuery();
+    </script>
+
+    <style>
+        @media (max-width: 992px) {
+            #list-row p{
+                font-size: 17px;
+            }
+            .col-sm-6{
+                margin-bottom: 50px;
+            }
+        }
+    </style>
+
     <!-- -->
 </head>
 
@@ -52,12 +125,6 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="login-box">
-                        <select id="basicAuth" class="selectpicker show-tick form-control" data-placeholder="Sign In">
-                            <option>Kayıt Ol</option>
-                            <option>Giriş Yap</option>
-                        </select>
-                    </div>
                     <div class="text-slid-box">
                         <div id="offer-box" class="carouselTicker">
                             <ul class="offer-box">
@@ -114,11 +181,11 @@
                         <li class="nav-item"><a class="nav-link" href="about.html">Hakkımızda</a></li>
                         <li class="nav-item"><a class="nav-link" href="mission-vision.html">MİSYON / VİZYON</a></li>
                         <li class="dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: #dbcf61; background: transparent; border: 1px solid #dbcf61">ÜRÜNLERİMİZ ▼</a>
+                            <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown" style="color: #dbcf61; background: transparent; border: 1px solid #dbcf61">ÜRÜNLERİMİZ ▼</a>
                             <ul class="dropdown-menu">
                                 <li><a href="gallery.html">Ürün Galerisi</a></li>
+                                <li><a href="numbers.html">Sayısal Veriler</a></li>
                                 <li><a href="shop.html">Ürün Alışverişi</a></li>
-                                <li><a href="cart.html">Sepet</a></li>
                                 <li><a href="checkout.html">Ödeme</a></li>
                             </ul>
                         </li>
@@ -175,34 +242,6 @@
     </header>
     <!-- End Main Top -->
 
-    <!-- Start Top Search -->
-    <div class="top-search">
-        <div class="container">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                <input type="text" class="form-control" placeholder="Search">
-                <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
-            </div>
-        </div>
-    </div>
-    <!-- End Top Search -->
-
-    <!-- Start All Title Box -->
-    <div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-page-header">
-                    <h2>Shop</h2>
-                    <ul class="breadcrumb col-page-header-breadcrumb">
-                        <li class="breadcrumb-item"><a>Sayfalar</a></li>
-                        <li class="breadcrumb-item active">Ürünler</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End All Title Box -->
-
     <!-- Start Shop Page  -->
     <div class="shop-box-inner">
         <div class="container">
@@ -212,16 +251,13 @@
                         <div class="product-item-filter row">
                             <div class="col-12 col-sm-8 text-center text-sm-left">
                                 <div class="toolbar-sorter-right">
-                                    <span>Sort by </span>
-                                    <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
-									<option data-display="Select">Nothing</option>
-									<option value="1">Popularity</option>
-									<option value="2">High Price → High Price</option>
-									<option value="3">Low Price → High Price</option>
-									<option value="4">Best Selling</option>
-								</select>
+                                    <span><b>Göster: </b></span>
+                                    <select id="basic" class="selectpicker show-tick form-control">
+                                        <option value="1" style="color: black">A - Z</option>
+                                        <option value="2" style="color: black">Z - A</option>
+                                    </select>
+                                    <h6 style="padding-top: 50px; color: #a3a3a3">(Z - A sıralaması sadece blok görünüm için uygundur.)</h6>
                                 </div>
-                                <p>Showing all 4 results</p>
                             </div>
                             <div class="col-12 col-sm-4 text-center text-sm-right">
                                 <ul class="nav nav-tabs ml-auto">
@@ -237,303 +273,686 @@
 
                         <div class="product-categorie-box">
                             <div class="tab-content">
+                                <!---------------------------GRID VIEW--------------------------------->
                                 <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
                                     <div class="row">
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 romantik komedi dram">
                                             <div class="products-single fix">
                                                 <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">Sale</p>
-                                                    </div>
-                                                    <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/amelie.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvYW1lbGllLmpwZyIsImlhdCI6MTczMjkwMjk1NSwiZXhwIjoxNzY0NDM4OTU1fQ.1VbLReXr2q10D8aS_6qzMsI94BYtiQNAc_x1SuG5mJU&t=2024-11-29T17%3A55%3A55.898Z" class="img-fluid" alt="Image">
                                                     <div class="mask-icon">
                                                         <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            <li><a href="shop-detail.html?product=amelie"  target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                         </ul>
-                                                        <a class="cart" href="#">Add to Cart</a>
                                                     </div>
                                                 </div>
                                                 <div class="why-text">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> $9.79</h5>
+                                                    <h4>Amelie</h4>
+                                                    <h5>79.99 ₺</h5>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 dram">
                                             <div class="products-single fix">
                                                 <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="new">New</p>
-                                                    </div>
-                                                    <img src="images/img-pro-02.jpg" class="img-fluid" alt="Image">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/babam-ve-oglum.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvYmFiYW0tdmUtb2dsdW0uanBnIiwiaWF0IjoxNzMyOTAzMDgxLCJleHAiOjE3NjQ0MzkwODF9.OzMxMeM522HRebQyBllZU-WiXLnlNqMq2EkN-ZirEfs&t=2024-11-29T17%3A58%3A01.825Z" class="img-fluid" alt="Image">
                                                     <div class="mask-icon">
                                                         <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            <li><a href="shop-detail.html?product=babam-ve-oglum" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                         </ul>
-                                                        <a class="cart" href="#">Add to Cart</a>
                                                     </div>
                                                 </div>
                                                 <div class="why-text">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> $9.79</h5>
+                                                    <h4>Babam ve Oğlum</h4>
+                                                    <h5>69.99 ₺</h5>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 romantik dram">
                                             <div class="products-single fix">
                                                 <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">Sale</p>
-                                                    </div>
-                                                    <img src="images/img-pro-03.jpg" class="img-fluid" alt="Image">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/before-sunrise.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvYmVmb3JlLXN1bnJpc2UuanBnIiwiaWF0IjoxNzMyOTAzNDE1LCJleHAiOjE3NjQ0Mzk0MTV9.Yr_ANYqVqWDlRS-Wybub6mx2hgSXhLnFfEQMgwQVNj8&t=2024-11-29T18%3A03%3A35.450Z" class="img-fluid" alt="Image">
                                                     <div class="mask-icon">
                                                         <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            <li><a href="shop-detail.html?product=before-sunrise" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                         </ul>
-                                                        <a class="cart" href="#">Add to Cart</a>
                                                     </div>
                                                 </div>
                                                 <div class="why-text">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> $9.79</h5>
+                                                    <h4>Before Sunrise</h4>
+                                                    <h5>89.99 ₺</h5>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 dram komedi">
                                             <div class="products-single fix">
                                                 <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="new">New</p>
-                                                    </div>
-                                                    <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/birdman.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvYmlyZG1hbi5qcGciLCJpYXQiOjE3MzI5MDM4MzksImV4cCI6MTc2NDQzOTgzOX0.X8LN4yr_wmyvPgGfwcnhQmhcgsitpUBbYAF18wL5si4&t=2024-11-29T18%3A10%3A39.905Z" class="img-fluid" alt="Image">
                                                     <div class="mask-icon">
                                                         <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            <li><a href="shop-detail.html?product=birdman" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                         </ul>
-                                                        <a class="cart" href="#">Add to Cart</a>
                                                     </div>
                                                 </div>
                                                 <div class="why-text">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> $9.79</h5>
+                                                    <h4>Birdman</h4>
+                                                    <h5>84.99 ₺</h5>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 dram gizem">
                                             <div class="products-single fix">
                                                 <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">Sale</p>
-                                                    </div>
-                                                    <img src="images/img-pro-02.jpg" class="img-fluid" alt="Image">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/citizen-kane.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvY2l0aXplbi1rYW5lLmpwZyIsImlhdCI6MTczMjkwNDAxMCwiZXhwIjoxNzY0NDQwMDEwfQ.x4CZU9n7mMqeXVEvtE0VAmysTvBXiLyL2dZoGMRyhtc&t=2024-11-29T18%3A13%3A31.082Z" class="img-fluid" alt="Image">
                                                     <div class="mask-icon">
                                                         <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            <li><a href="shop-detail.html?product=citizen-kane" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                         </ul>
-                                                        <a class="cart" href="#">Add to Cart</a>
                                                     </div>
                                                 </div>
                                                 <div class="why-text">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> $9.79</h5>
+                                                    <h4>Citizen Kane</h4>
+                                                    <h5>119.99 ₺</h5>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 savas dram">
                                             <div class="products-single fix">
                                                 <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">Sale</p>
-                                                    </div>
-                                                    <img src="images/img-pro-03.jpg" class="img-fluid" alt="Image">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/full-metal-jacket.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvZnVsbC1tZXRhbC1qYWNrZXQuanBnIiwiaWF0IjoxNzMyOTA1MjE0LCJleHAiOjE3NjQ0NDEyMTR9.6u-CCgd98G6AE3rzeuoppgwLwAtKntpOeW9Y1-jSZMs&t=2024-11-29T18%3A33%3A34.571Z" class="img-fluid" alt="Image">
                                                     <div class="mask-icon">
                                                         <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            <li><a href="shop-detail.html?product=full-metal-jacket" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                         </ul>
-                                                        <a class="cart" href="#">Add to Cart</a>
                                                     </div>
                                                 </div>
                                                 <div class="why-text">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> $9.79</h5>
+                                                    <h4>Full Metal Jacket</h4>
+                                                    <h5>109.99 ₺</h5>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 komedi macera">
                                             <div class="products-single fix">
                                                 <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">Sale</p>
-                                                    </div>
-                                                    <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/grand-budapest-hotel.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvZ3JhbmQtYnVkYXBlc3QtaG90ZWwuanBnIiwiaWF0IjoxNzMyOTA5NjY2LCJleHAiOjE3NjQ0NDU2NjZ9.z1AvXYXZtk5oaApHZxjupHpq5hKWXx9JUZjp-EEbQeQ&t=2024-11-29T19%3A47%3A47.077Z" class="img-fluid" alt="Image">
                                                     <div class="mask-icon">
                                                         <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            <li><a href="shop-detail.html?product=grand-budapest-hotel" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                         </ul>
-                                                        <a class="cart" href="#">Add to Cart</a>
                                                     </div>
                                                 </div>
                                                 <div class="why-text">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> $9.79</h5>
+                                                    <h4>Grand Budapest Hotel</h4>
+                                                    <h5>99.99 ₺</h5>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 suc dram tarih">
                                             <div class="products-single fix">
                                                 <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="sale">Sale</p>
-                                                    </div>
-                                                    <img src="images/img-pro-02.jpg" class="img-fluid" alt="Image">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/killers-of-the-flower-moon.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQva2lsbGVycy1vZi10aGUtZmxvd2VyLW1vb24uanBnIiwiaWF0IjoxNzMzMDAwOTM2LCJleHAiOjE3NjQ1MzY5MzZ9.skuWRtwpauSRiTKumOKsEvbp6antois4YntKhGEO4EQ&t=2024-11-30T21%3A08%3A56.148Z" class="img-fluid" alt="Image">
                                                     <div class="mask-icon">
                                                         <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            <li><a href="shop-detail.html?product=killers-of-the-flower-moon" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                         </ul>
-                                                        <a class="cart" href="#">Add to Cart</a>
                                                     </div>
                                                 </div>
                                                 <div class="why-text">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> $9.79</h5>
+                                                    <h4>Killers of the Flower Moon</h4>
+                                                    <h5>129.99 ₺</h5>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 romantik muzikal dram">
                                             <div class="products-single fix">
                                                 <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="new">New</p>
-                                                    </div>
-                                                    <img src="images/img-pro-03.jpg" class="img-fluid" alt="Image">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/la-la-land.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvbGEtbGEtbGFuZC5qcGciLCJpYXQiOjE3MzI4OTU2OTYsImV4cCI6MTc2NDQzMTY5Nn0.3dAbd0E08XiGVW9S6ayxvb7w51NNlehB1fd9XtCYNSs&t=2024-11-29T15%3A54%3A56.539Z" class="img-fluid" alt="Image">
                                                     <div class="mask-icon">
                                                         <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            <li><a href="shop-detail.html?product=la-la-land" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                         </ul>
-                                                        <a class="cart" href="#">Add to Cart</a>
                                                     </div>
                                                 </div>
                                                 <div class="why-text">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> $9.79</h5>
+                                                    <h4>La La Land</h4>
+                                                    <h5>84.99 ₺</h5>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 dram aksiyon">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/leon-the-professional.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvbGVvbi10aGUtcHJvZmVzc2lvbmFsLmpwZWciLCJpYXQiOjE3MzI5MDUzNzksImV4cCI6MTc2NDQ0MTM3OX0.7jBTFmkl5Dx6IkOLLRzA8Wt9MTkEjWc1lIU1Zwk0wkQ&t=2024-11-29T18%3A36%3A19.480Z" class="img-fluid" alt="Image">
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li><a href="shop-detail.html?product=leon-the-professional" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="why-text">
+                                                    <h4>Leon: The Professional</h4>
+                                                    <h5>89.99 ₺</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 fantastik macera">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/lotr-trilogy.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvbG90ci10cmlsb2d5LmpwZyIsImlhdCI6MTczMjkwNTc1NSwiZXhwIjoxNzY0NDQxNzU1fQ.kx7-rxbjmXK0I6SqLQJDTjWj3BWHQxMIzipX7CzW_N0&t=2024-11-29T18%3A42%3A35.975Z" class="img-fluid" alt="Image">
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li><a href="shop-detail.html?product=lotr-trilogy" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="why-text">
+                                                    <h4>LOTR: Trilogy</h4>
+                                                    <h5>299.99 ₺</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 aksyion komedi">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/pulp-fiction.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvcHVscC1maWN0aW9uLmpwZyIsImlhdCI6MTczMjc5MDk1NCwiZXhwIjoxNzY0MzI2OTU0fQ.uETKJglXH0h8SW9MHVntuJhK0B82XeOD6Stl81WRc9o&t=2024-11-28T10%3A49%3A14.776Z" class="img-fluid" alt="Image">
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li><a href="shop-detail.html?product=pulp-fiction" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="why-text">
+                                                    <h4>Pulp Fiction</h4>
+                                                    <h5>99.99 ₺</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 animasyon komedi">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/ratatouille.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvcmF0YXRvdWlsbGUuanBnIiwiaWF0IjoxNzMyOTA1ODk0LCJleHAiOjE3NjQ0NDE4OTR9.GKsDXCudoxBGHXiEPNBU9RDTON4VKlM3_8WhOTv-Io0&t=2024-11-29T18%3A44%3A54.174Z" class="img-fluid" alt="Image">
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li><a href="shop-detail.html?product=ratatouille" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="why-text">
+                                                    <h4>Ratatouille</h4>
+                                                    <h5>69.99 ₺</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 komedi korku">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/shaun-of-the-dead.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvc2hhdW4tb2YtdGhlLWRlYWQuanBnIiwiaWF0IjoxNzMzMDAwOTY4LCJleHAiOjE3NjQ1MzY5Njh9.80GU_3R-bZsBT0mlCv6Uwyfdi7fsSSnp8_Vosm1UZJc&t=2024-11-30T21%3A09%3A28.623Z" class="img-fluid" alt="Image">
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li><a href="shop-detail.html?product=shaun-of-the-dead" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="why-text">
+                                                    <h4>Shaun of the Dead</h4>
+                                                    <h5>79.99 ₺</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 noir dram suc">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/taxi-driver.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvdGF4aS1kcml2ZXIuanBnIiwiaWF0IjoxNzMyOTA2MDAzLCJleHAiOjE3NjQ0NDIwMDN9.ExQmN_7OdOCHdSd5wvdQPv0pR60NnGPzE7ao1QmpCtM&t=2024-11-29T18%3A46%3A43.587Z" class="img-fluid" alt="Image">
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li><a href="shop-detail.html?product=taxi-driver" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="why-text">
+                                                    <h4>Taxi Driver</h4>
+                                                    <h5>109.99 ₺</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 animasyon fantastik macera">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/the-boy-and-the-heron.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvdGhlLWJveS1hbmQtdGhlLWhlcm9uLmpwZyIsImlhdCI6MTczMzAwMTQ2NiwiZXhwIjoxNzY0NTM3NDY2fQ.WtDwURsQtXzrO40GRBs0WZt8qWYLuqSmLGsSyYuOVyg&t=2024-11-30T21%3A17%3A46.506Z" class="img-fluid" alt="Image">
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li><a href="shop-detail.html?product=the-boy-and-the-heron" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="why-text">
+                                                    <h4>The Boy and the Heron</h4>
+                                                    <h5>99.99 ₺</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 dram psikolojik">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/the-hunt.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvdGhlLWh1bnQuanBnIiwiaWF0IjoxNzMzMDAxMDAwLCJleHAiOjE3NjQ1MzcwMDB9.4JO_E5jTLHzT3iXe8SbrCEeQAJmNCH8TvPTkCRrloX4&t=2024-11-30T21%3A10%3A00.309Z" class="img-fluid" alt="Image">
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li><a href="shop-detail.html?product=the-hunt" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="why-text">
+                                                    <h4>The Hunt</h4>
+                                                    <h5>89.99 ₺</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 korku gerilim">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/the-shining.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvdGhlLXNoaW5pbmcuanBnIiwiaWF0IjoxNzMyNzE2NDA5LCJleHAiOjE3NjQyNTI0MDl9.X1agLoT3_ZVQ5Z4xJQ2E6nU2IRoV-uSvxK1P31Y9HNI&t=2024-11-27T14%3A06%3A49.004Z" class="img-fluid" alt="Image">
+                                                    <div class="mask-icon">
+                                                        <ul>
+                                                            <li><a href="shop-detail.html?product=shining" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="why-text">
+                                                    <h4>The Shining</h4>
+                                                    <h5>119.99 ₺</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
+                                    <!---------------------------LIST VIEW--------------------------------->
                                 <div role="tabpanel" class="tab-pane fade" id="list-view">
                                     <div class="list-view-box">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                        <div id="list-row" class="row" style="font-size: 17px">
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 romantik komedi dram">
                                                 <div class="products-single fix">
                                                     <div class="box-img-hover">
-                                                        <div class="type-lb">
-                                                            <p class="new">New</p>
-                                                        </div>
-                                                        <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/amelie.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvYW1lbGllLmpwZyIsImlhdCI6MTczMjkwMjk1NSwiZXhwIjoxNzY0NDM4OTU1fQ.1VbLReXr2q10D8aS_6qzMsI94BYtiQNAc_x1SuG5mJU&t=2024-11-29T17%3A55%3A55.898Z" class="img-fluid" alt="Image">
                                                         <div class="mask-icon">
                                                             <ul>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                <li><a href="shop-detail.html?product=amelie" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                             </ul>
-
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 romantik komedi dram">
                                                 <div class="why-text full-width">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> <del>$ 60.00</del> $40.79</h5>
-                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien, imperdiet quis magna nec, iaculis ultrices ante. Integer vitae suscipit nisi. Morbi dignissim risus sit amet orci porta, eget aliquam purus
-                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus, quis euismod ex volutpat in. Vestibulum eleifend eros ac lobortis aliquet.
-                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin quam. Praesent vulputate semper libero pulvinar consequat. Etiam ut placerat lectus.</p>
-                                                    <a class="btn hvr-hover" href="#">Add to Cart</a>
+                                                    <h4>Amelie</h4>
+                                                    <h5>79.99 ₺</h5>
+                                                    <p>Fransız sinemasının en sevilen filmlerinden biri olan Amélie, hayata pozitif bir bakış açısıyla yaklaşan genç bir kadının hikayesini anlatıyor. Jean-Pierre Jeunet'in yönetmenliğini yaptığı bu büyüleyici film, aşk, dostluk ve hayatın küçük mucizelerini keşfetme temasını işlerken izleyiciyi Paris'in eşsiz atmosferine götürüyor.</p>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-view-box">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 dram">
                                                 <div class="products-single fix">
                                                     <div class="box-img-hover">
-                                                        <div class="type-lb">
-                                                            <p class="sale">Sale</p>
-                                                        </div>
-                                                        <img src="images/img-pro-02.jpg" class="img-fluid" alt="Image">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/babam-ve-oglum.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvYmFiYW0tdmUtb2dsdW0uanBnIiwiaWF0IjoxNzMyOTAzMDgxLCJleHAiOjE3NjQ0MzkwODF9.OzMxMeM522HRebQyBllZU-WiXLnlNqMq2EkN-ZirEfs&t=2024-11-29T17%3A58%3A01.825Z" class="img-fluid" alt="Image">
                                                         <div class="mask-icon">
                                                             <ul>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                <li><a href="shop-detail.html?product=babam-ve-oglum" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                             </ul>
-
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 dram">
                                                 <div class="why-text full-width">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> <del>$ 60.00</del> $40.79</h5>
-                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien, imperdiet quis magna nec, iaculis ultrices ante. Integer vitae suscipit nisi. Morbi dignissim risus sit amet orci porta, eget aliquam purus
-                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus, quis euismod ex volutpat in. Vestibulum eleifend eros ac lobortis aliquet.
-                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin quam. Praesent vulputate semper libero pulvinar consequat. Etiam ut placerat lectus.</p>
-                                                    <a class="btn hvr-hover" href="#">Add to Cart</a>
+                                                    <h4>Babam ve Oğlum</h4>
+                                                    <h5>69.99 ₺</h5>
+                                                    <p>Çağan Irmak'ın yönettiği Babam ve Oğlum, bir ailenin nesiller arasındaki bağlarını ve geçmişten gelen yaralarını onarmasını konu edinen etkileyici bir Türk dramıdır. Duygusal hikayesi ve unutulmaz oyunculuklarıyla izleyenlerin kalbine dokunan bu film, aile değerlerini yeniden hatırlatıyor.</p>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-view-box">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 romantik dram">
                                                 <div class="products-single fix">
                                                     <div class="box-img-hover">
-                                                        <div class="type-lb">
-                                                            <p class="sale">Sale</p>
-                                                        </div>
-                                                        <img src="images/img-pro-03.jpg" class="img-fluid" alt="Image">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/before-sunrise.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvYmVmb3JlLXN1bnJpc2UuanBnIiwiaWF0IjoxNzMyOTAzNDE1LCJleHAiOjE3NjQ0Mzk0MTV9.Yr_ANYqVqWDlRS-Wybub6mx2hgSXhLnFfEQMgwQVNj8&t=2024-11-29T18%3A03%3A35.450Z" class="img-fluid" alt="Image">
                                                         <div class="mask-icon">
                                                             <ul>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                <li><a href="shop-detail.html?product=before-sunrise" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                             </ul>
-
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 romantik dram">
                                                 <div class="why-text full-width">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5> <del>$ 60.00</del> $40.79</h5>
-                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien, imperdiet quis magna nec, iaculis ultrices ante. Integer vitae suscipit nisi. Morbi dignissim risus sit amet orci porta, eget aliquam purus
-                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus, quis euismod ex volutpat in. Vestibulum eleifend eros ac lobortis aliquet.
-                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin quam. Praesent vulputate semper libero pulvinar consequat. Etiam ut placerat lectus.</p>
-                                                    <a class="btn hvr-hover" href="#">Add to Cart</a>
+                                                    <h4>Before Sunrise</h4>
+                                                    <h5>89.99 ₺</h5>
+                                                    <p>Richard Linklater'ın romantik üçlemesinin ilk filmi olan Before Sunrise, iki yabancının bir gece boyunca Viyana sokaklarında dolaşıp birbirlerini tanımalarını konu alır. Ethan Hawke ve Julie Delpy'nin doğallıklarıyla öne çıkan bu film, derin sohbetleri ve gerçekçi romantizmiyle izleyiciyi büyülüyor.</p>
                                                 </div>
                                             </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 dram komedi">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/birdman.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvYmlyZG1hbi5qcGciLCJpYXQiOjE3MzI5MDM4MzksImV4cCI6MTc2NDQzOTgzOX0.X8LN4yr_wmyvPgGfwcnhQmhcgsitpUBbYAF18wL5si4&t=2024-11-29T18%3A10%3A39.905Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=birdman" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 dram komedi">
+                                                <div class="why-text full-width">
+                                                    <h4>Birdman</h4>
+                                                    <h5>94.99 ₺</h5>
+                                                    <p>Alejandro G. Iñárritu'nun çarpıcı filmi Birdman, bir zamanların ünlü bir süper kahraman oyuncusunun kariyerini yeniden canlandırma çabalarını ele alır. Tek plan gibi çekilmiş sinematografisi ve Michael Keaton'ın olağanüstü performansıyla, film modern sinema tarihinin başyapıtlarından biri olarak kabul edilir.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 dram gizem">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/citizen-kane.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvY2l0aXplbi1rYW5lLmpwZyIsImlhdCI6MTczMjkwNDAxMCwiZXhwIjoxNzY0NDQwMDEwfQ.x4CZU9n7mMqeXVEvtE0VAmysTvBXiLyL2dZoGMRyhtc&t=2024-11-29T18%3A13%3A31.082Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=citizen-kane" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 dram gizem">
+                                                <div class="why-text full-width">
+                                                    <h4>Citizen Kane</h4>
+                                                    <h5>119.99 ₺</h5>
+                                                    <p>Orson Welles'in yönettiği Citizen Kane, sinema tarihinde bir devrim niteliği taşır. Güç ve hırs temalarını benzersiz bir anlatımla işleyen film, teknik yenilikleri ve sürükleyici hikayesiyle hâlâ modern sinema için bir referans noktasıdır.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 savas dram">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/full-metal-jacket.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvZnVsbC1tZXRhbC1qYWNrZXQuanBnIiwiaWF0IjoxNzMyOTA1MjE0LCJleHAiOjE3NjQ0NDEyMTR9.6u-CCgd98G6AE3rzeuoppgwLwAtKntpOeW9Y1-jSZMs&t=2024-11-29T18%3A33%3A34.571Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=full-metal-jacket" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 savas dram">
+                                                <div class="why-text full-width">
+                                                    <h4>Full Metal Jacket</h4>
+                                                    <h5>109.99 ₺</h5>
+                                                    <p>Stanley Kubrick'in savaşın insan üzerindeki etkilerini sert bir dille ele aldığı Full Metal Jacket, askeri eğitimden Vietnam Savaşı'na kadar uzanan bir yolculuğu anlatır. Sinematografisi ve çarpıcı anlatımıyla unutulmaz bir sinema deneyimi sunar.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 komedi macera">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/grand-budapest-hotel.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvZ3JhbmQtYnVkYXBlc3QtaG90ZWwuanBnIiwiaWF0IjoxNzMyOTA5NjY2LCJleHAiOjE3NjQ0NDU2NjZ9.z1AvXYXZtk5oaApHZxjupHpq5hKWXx9JUZjp-EEbQeQ&t=2024-11-29T19%3A47%3A47.077Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=grand-budapest-hotel" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 komedi macera">
+                                                <div class="why-text full-width">
+                                                    <h4>Grand Budapest Hotel</h4>
+                                                    <h5>99.99 ₺</h5>
+                                                    <p>Wes Anderson'ın renkli ve kendine has tarzını yansıtan Grand Budapest Hotel, bir otel müdürü ile genç bir çalışanın maceralarını anlatır. Görsel zenginlikleri, mizahı ve duygusal derinliğiyle modern bir klasik haline gelmiştir.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 suc dram tarih">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/killers-of-the-flower-moon.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQva2lsbGVycy1vZi10aGUtZmxvd2VyLW1vb24uanBnIiwiaWF0IjoxNzMzMDAwOTM2LCJleHAiOjE3NjQ1MzY5MzZ9.skuWRtwpauSRiTKumOKsEvbp6antois4YntKhGEO4EQ&t=2024-11-30T21%3A08%3A56.148Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=killers-of-the-flower-moon" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 suc dram tarih">
+                                                <div class="why-text full-width">
+                                                    <h4>Killers of the Flower Moon</h4>
+                                                    <h5>129.99 ₺</h5>
+                                                    <p>Amerikan tarihinin karanlık bir dönemine ışık tutan *Killers of the Flower Moon*, Oscar ödüllü yönetmen Martin Scorsese'nin ustalıkla işlediği bir suç ve dram başyapıtıdır. Osage Nation halkına yönelik cinayetleri ve FBI'ın kuruluş yıllarını konu alan film, Leonardo DiCaprio ve Robert De Niro gibi dev oyuncuların muhteşem performanslarıyla öne çıkıyor. Derin hikayesi ve etkileyici atmosferiyle bu eser, sinemaseverlere unutulmaz bir deneyim sunuyor.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 romantik muzikal dram">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/la-la-land.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvbGEtbGEtbGFuZC5qcGciLCJpYXQiOjE3MzI4OTU2OTYsImV4cCI6MTc2NDQzMTY5Nn0.3dAbd0E08XiGVW9S6ayxvb7w51NNlehB1fd9XtCYNSs&t=2024-11-29T15%3A54%3A56.539Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=la-la-land" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 romantik muzikal dram">
+                                                <div class="why-text full-width">
+                                                    <h4>La La Land</h4>
+                                                    <h5>84.99 ₺</h5>
+                                                    <p>Modern sinema dünyasında müzikal türünü yeniden canlandıran ve izleyenleri büyüleyen La La Land, yönetmen Damien Chazelle’in vizyonu ve muhteşem hikaye anlatımıyla bir başyapıt olarak kabul ediliyor. Ryan Gosling ve Emma Stone’un unutulmaz performanslarıyla hayat bulan bu etkileyici film, aşkın, tutkunun ve hayallerin peşinden gitmenin güzelliğini büyüleyici bir görsellikle anlatıyor...</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 dram aksiyon">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/leon-the-professional.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvbGVvbi10aGUtcHJvZmVzc2lvbmFsLmpwZWciLCJpYXQiOjE3MzI5MDUzNzksImV4cCI6MTc2NDQ0MTM3OX0.7jBTFmkl5Dx6IkOLLRzA8Wt9MTkEjWc1lIU1Zwk0wkQ&t=2024-11-29T18%3A36%3A19.480Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=leon-the-professional" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 dram aksiyon">
+                                                <div class="why-text full-width">
+                                                    <h4>Leon: The Professional</h4>
+                                                    <h5>89.99 ₺</h5>
+                                                    <p>Luc Besson'un yönettiği Léon: The Professional, bir tetikçi ile genç bir kız arasındaki sıra dışı dostluğu konu alır. Jean Reno ve Natalie Portman'ın etkileyici performanslarıyla öne çıkan bu film, hem aksiyon hem de duygusal bir hikaye sunar.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 fantastik macera">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/lotr-trilogy.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvbG90ci10cmlsb2d5LmpwZyIsImlhdCI6MTczMjkwNTc1NSwiZXhwIjoxNzY0NDQxNzU1fQ.kx7-rxbjmXK0I6SqLQJDTjWj3BWHQxMIzipX7CzW_N0&t=2024-11-29T18%3A42%3A35.975Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=lotr-trilogy" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 fantastik macera">
+                                                <div class="why-text full-width">
+                                                    <h4>LOTR: Trilogy</h4>
+                                                    <h5>299.99 ₺</h5>
+                                                    <p>Peter Jackson'ın yönettiği ve J.R.R. Tolkien'in romanından uyarlanan Yüzüklerin Efendisi Üçlemesi, sinema tarihinin en görkemli fantastik destanlarından biridir. Efsanevi karakterleri ve nefes kesen görselliğiyle sinemaseverlerin baş tacı olmuştur.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 suc aksiyon komedi">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/pulp-fiction.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvcHVscC1maWN0aW9uLmpwZyIsImlhdCI6MTczMjc5MDk1NCwiZXhwIjoxNzY0MzI2OTU0fQ.uETKJglXH0h8SW9MHVntuJhK0B82XeOD6Stl81WRc9o&t=2024-11-28T10%3A49%3A14.776Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=pulp-fiction" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 suc aksiyon komedi">
+                                                <div class="why-text full-width">
+                                                    <h4>Pulp Fiction</h4>
+                                                    <h5>99.99 ₺</h5>
+                                                    <p>Sinema tarihine damgasını vuran ve modern klasikler arasında yerini alan Pulp Fiction, ünlü yönetmen Quentin Tarantino'nun ustalıkla işlediği senaryosu ve benzersiz yönetmenlik tarzıyla unutulmaz bir başyapıttır...</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 animasyon komedi">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/ratatouille.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvcmF0YXRvdWlsbGUuanBnIiwiaWF0IjoxNzMyOTA1ODk0LCJleHAiOjE3NjQ0NDE4OTR9.GKsDXCudoxBGHXiEPNBU9RDTON4VKlM3_8WhOTv-Io0&t=2024-11-29T18%3A44%3A54.174Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=ratatouille" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 animasyon komedi">
+                                                <div class="why-text full-width">
+                                                    <h4>Ratatouille</h4>
+                                                    <h5>69.99 ₺</h5>
+                                                    <p>Pixar'ın sevilen animasyonu Ratatouille, yemek yapma tutkusuyla dolu bir fare olan Remy'nin Paris'in en ünlü restoranlarından birinde çalışmasını konu alır. Eğlenceli hikayesi ve ilham verici mesajıyla her yaştan izleyicinin beğenisini kazanmıştır.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 komedi korku">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/shaun-of-the-dead.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvc2hhdW4tb2YtdGhlLWRlYWQuanBnIiwiaWF0IjoxNzMzMDAwOTY4LCJleHAiOjE3NjQ1MzY5Njh9.80GU_3R-bZsBT0mlCv6Uwyfdi7fsSSnp8_Vosm1UZJc&t=2024-11-30T21%3A09%3A28.623Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=shaun-of-the-dead" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 komedi korku">
+                                                <div class="why-text full-width">
+                                                    <h4>Shaun of the Dead</h4>
+                                                    <h5>79.99 ₺</h5>
+                                                    <p>Zombi filmlerine mizahi bir bakış açısı kazandıran *Shaun of the Dead*, yönetmen Edgar Wright'ın özgün tarzıyla bir kült klasik haline gelmiştir. Simon Pegg ve Nick Frost'un unutulmaz performanslarıyla renklenen film, kahkaha ve gerilimi harmanlayarak izleyicilere eşsiz bir eğlence sunuyor...</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 noir dram suc">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/taxi-driver.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvdGF4aS1kcml2ZXIuanBnIiwiaWF0IjoxNzMyOTA2MDAzLCJleHAiOjE3NjQ0NDIwMDN9.ExQmN_7OdOCHdSd5wvdQPv0pR60NnGPzE7ao1QmpCtM&t=2024-11-29T18%3A46%3A43.587Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=taxi-driver" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 noir dram suc">
+                                                <div class="why-text full-width">
+                                                    <h4>Taxi Driver</h4>
+                                                    <h5>109.99 ₺</h5>
+                                                    <p>Martin Scorsese'nin kült filmi Taxi Driver, yalnız bir taksi şoförünün giderek karanlıklaşan iç dünyasını konu alır. Robert De Niro'nun unutulmaz performansı ve film noir tarzıyla sinema tarihinin vazgeçilmez eserlerinden biridir.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 animasyon fantastik macera">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/the-boy-and-the-heron.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvdGhlLWJveS1hbmQtdGhlLWhlcm9uLmpwZyIsImlhdCI6MTczMzAwMTQ2NiwiZXhwIjoxNzY0NTM3NDY2fQ.WtDwURsQtXzrO40GRBs0WZt8qWYLuqSmLGsSyYuOVyg&t=2024-11-30T21%3A17%3A46.506Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=the-boy-and-the-heron" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 animasyon fantastik macera">
+                                                <div class="why-text full-width">
+                                                    <h4>The Boy and the Heron</h4>
+                                                    <h5>99.99 ₺</h5>
+                                                    <p>Japon animasyon sinemasının dev ismi Hayao Miyazaki'nin uzun zamandır beklenen geri dönüşü olan *The Boy and the Heron*, büyülü bir dünyada geçen etkileyici bir hikaye sunuyor. Aile, dostluk ve hayal gücünün gücü üzerine yoğunlaşan bu benzersiz eser, Studio Ghibli'nin büyüleyici görselliği ve derin anlatımıyla dikkat çekiyor...</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 dram psikolojik">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/the-hunt.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvdGhlLWh1bnQuanBnIiwiaWF0IjoxNzMzMDAxMDAwLCJleHAiOjE3NjQ1MzcwMDB9.4JO_E5jTLHzT3iXe8SbrCEeQAJmNCH8TvPTkCRrloX4&t=2024-11-30T21%3A10%3A00.309Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=the-hunt" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 dram psikolojik">
+                                                <div class="why-text full-width">
+                                                    <h4>The Hunt</h4>
+                                                    <h5>89.99 ₺</h5>
+                                                    <p>Danimarka sinemasının öne çıkan eserlerinden biri olan *The Hunt (Jagten)*, Thomas Vinterberg'in etkileyici yönetmenliği ve Mads Mikkelsen'in büyüleyici performansıyla dikkat çeker. Masum bir adamın, yanlış anlaşılmalarla dolu bir topluluk içinde yaşadığı duygusal ve psikolojik zorlukları anlatan bu film, izleyiciyi derinden etkileyen bir hikaye sunuyor...</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 korku gerilim">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <img src="https://neaosrrnpplulnolglgj.supabase.co/storage/v1/object/sign/products.bucket/the-shining.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0cy5idWNrZXQvdGhlLXNoaW5pbmcuanBnIiwiaWF0IjoxNzMyNzE2NDA5LCJleHAiOjE3NjQyNTI0MDl9.X1agLoT3_ZVQ5Z4xJQ2E6nU2IRoV-uSvxK1P31Y9HNI&t=2024-11-27T14%3A06%3A49.004Z" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="shop-detail.html?product=shining" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8 korku gerilim">
+                                                <div class="why-text full-width">
+                                                    <h4>The Shining</h4>
+                                                    <h5>119.99 ₺</h5>
+                                                    <p>Sadece korku türü için değil, tüm sinema tarihinin en ikonik ve
+                                                        etkileyici eserlerinden biri olarak kabul edilen The Shining,
+                                                        usta auteur yönetmen Stanley Kubrick'in dahice işlenmiş
+                                                        görselliği ve benzersiz hikaye anlatımıyla bir başyapıttır...</p>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -543,57 +962,35 @@
                 </div>
 				<div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
                     <div class="product-categori">
-                        <div class="search-product">
-                            <form action="#">
-                                <input class="form-control" placeholder="Search here..." type="text">
-                                <button type="submit"> <i class="fa fa-search"></i> </button>
-                            </form>
-                        </div>
                         <div class="filter-sidebar-left">
-                            <div class="title-left">
-                                <h3>Categories</h3>
-                            </div>
                             <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
+                                <h4 style="border-top: 1px solid #454545; border-bottom: 1px solid #454545; padding: 16.5px 0 16.5px 10px"><b>Türlere Göre Filtrele <i class="fa fa-filter"></i> </b></h4>
+                                <hr>
                                 <div class="list-group-collapse sub-men">
-                                    <a class="list-group-item list-group-item-action" href="#sub-men1" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1">Fruits & Drinks <small class="text-muted">(100)</small>
+                                    <a class="list-group-item list-group-item-action" href="#sub-men1" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1">Türler <small class="text-muted">(16)</small>
 								</a>
                                     <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
                                         <div class="list-group">
-                                            <a href="#" class="list-group-item list-group-item-action active">Fruits 1 <small class="text-muted">(50)</small></a>
-                                            <a href="#" class="list-group-item list-group-item-action">Fruits 2 <small class="text-muted">(10)</small></a>
-                                            <a href="#" class="list-group-item list-group-item-action">Fruits 3 <small class="text-muted">(10)</small></a>
-                                            <a href="#" class="list-group-item list-group-item-action">Fruits 4 <small class="text-muted">(10)</small></a>
-                                            <a href="#" class="list-group-item list-group-item-action">Fruits 5 <small class="text-muted">(20)</small></a>
+                                            <button class="list-group-item list-group-item-action" data-filter="*">Tümü <small class="text-muted">(18)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".dram">Dram <small class="text-muted">(11)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".komedi">Komedi <small class="text-muted">(6)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".romantik">Romantik <small class="text-muted">(10)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".gizem">Gizem <small class="text-muted">(1)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".savas">Savaş <small class="text-muted">(1)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".macera">Macera <small class="text-muted">(3)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".tarih">Tarih <small class="text-muted">(1)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".suc">Suç <small class="text-muted">(3)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".muzikal">Müzikal <small class="text-muted">(1)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".aksiyon">Aksiyon <small class="text-muted">(2)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".fantastik">Fantastik <small class="text-muted">(2)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".animasyon">Animasyon <small class="text-muted">(2)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".korku">Korku <small class="text-muted">(2)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".gerilim">Gerilim <small class="text-muted">(1)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".noir">Noir <small class="text-muted">(1)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".psikolojik">Psikolojik <small class="text-muted">(1)</small></button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="list-group-collapse sub-men">
-                                    <a class="list-group-item list-group-item-action" href="#sub-men2" data-toggle="collapse" aria-expanded="false" aria-controls="sub-men2">Vegetables 
-								<small class="text-muted">(50)</small>
-								</a>
-                                    <div class="collapse" id="sub-men2" data-parent="#list-group-men">
-                                        <div class="list-group">
-                                            <a href="#" class="list-group-item list-group-item-action">Vegetables 1 <small class="text-muted">(10)</small></a>
-                                            <a href="#" class="list-group-item list-group-item-action">Vegetables 2 <small class="text-muted">(20)</small></a>
-                                            <a href="#" class="list-group-item list-group-item-action">Vegetables 3 <small class="text-muted">(20)</small></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#" class="list-group-item list-group-item-action"> Grocery  <small class="text-muted">(150) </small></a>
-                                <a href="#" class="list-group-item list-group-item-action"> Grocery <small class="text-muted">(11)</small></a>
-                                <a href="#" class="list-group-item list-group-item-action"> Grocery <small class="text-muted">(22)</small></a>
-                            </div>
-                        </div>
-                        <div class="filter-price-left">
-                            <div class="title-left">
-                                <h3>Price</h3>
-                            </div>
-                            <div class="price-box-slider">
-                                <div id="slider-range"></div>
-                                <p>
-                                    <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
-                                    <button class="btn hvr-hover" type="submit">Filter</button>
-                                </p>
                             </div>
                         </div>
                     </div>
@@ -602,94 +999,6 @@
         </div>
     </div>
     <!-- End Shop Page -->
-
-    <!-- Start Instagram Feed  -->
-    <div class="instagram-box">
-        <div class="main-instagram owl-carousel owl-theme">
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-01.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-02.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-03.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-04.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-05.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-06.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-07.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-08.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-09.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-05.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Instagram Feed  -->
-
 
     <!-- Start Footer  -->
     <footer>
@@ -799,7 +1108,7 @@
     <script src="js/jquery.superslides.min.js"></script>
     <script src="js/bootstrap-select.js"></script>
     <script src="js/inewsticker.js"></script>
-    <script src="js/bootsnav.js."></script>
+    <script src="js/bootsnav.js"></script>
     <script src="js/images-loded.min.js"></script>
     <script src="js/isotope.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
@@ -810,6 +1119,64 @@
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/self.js"></script>
-</body>
 
+    <script>
+        <!-- FiltrelemeİçinScript -->
+        const items = document.querySelectorAll('.col-sm-6');
+
+        const buttons = document.querySelectorAll('[data-filter]');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+
+                items.forEach(item => {
+                    if (filter === '*' || item.classList.contains(filter.substring(1))) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        <!-- AZFiltrelemesiİçinScript -->
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectMenu = document.getElementById('basic');
+            const gridView = document.querySelector('#grid-view .row');
+            const listView = document.getElementById('list-row');
+
+            // Ürünleri grid ve list olarak alıyoruz
+            const gridProducts = Array.from(gridView.children);
+            const listProducts = Array.from(listView.children);
+
+            selectMenu.addEventListener('change', () => {
+                const selectedValue = selectMenu.value;
+
+                if (selectedValue === "1") {
+                    // A-Z
+                    sortAndUpdate(gridView, gridProducts, 'asc');
+                    sortAndUpdate(listView, listProducts, 'asc');
+                } else if (selectedValue === "2") {
+                    // Z-A
+                    sortAndUpdate(gridView, gridProducts, 'desc');
+                    sortAndUpdate(listView, listProducts, 'desc');
+                }
+            });
+
+            // Sıralama ve DOM güncelleme fonksiyonu
+            function sortAndUpdate(container, items, order) {
+                const sorted = items.sort((a, b) => {
+                    const nameA = a.querySelector('.why-text h4').innerText.toLowerCase();
+                    const nameB = b.querySelector('.why-text h4').innerText.toLowerCase();
+                    return order === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+                });
+
+                // Konteyneri güncelle
+                container.innerHTML = '';
+                sorted.forEach(item => container.appendChild(item));
+            }
+        });
+    </script>
+</body>
 </html>

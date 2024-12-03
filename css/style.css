@@ -1465,7 +1465,7 @@
 }
  .footer-link ul li a::before {
      font-family: FontAwesome;
-     content: "\f105";
+     content: "";
      position: absolute;
      left: 5px;
      line-height: 35px;
@@ -1941,7 +1941,7 @@
      transition: transform .2s,top .2s;
      transition: transform .2s,top .2s,-webkit-transform .2s;
      font-family: FontAwesome;
-     content: "\f105";
+     content: "";
 }
  .list-group-tree .list-group-collapse .list-group {
      margin-left: 25px;
