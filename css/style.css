@@ -931,6 +931,7 @@
      font-size: 32px;
      font-weight: 700;
      color: #000000;
+     margin: 0 10px 0 10px;
 }
  .title-all p{
      color: #999999;
@@ -1597,6 +1598,34 @@
      padding: 0 10px 0 10px;
      border: 1px solid #454545;
      font-weight: bold;
+ }
+
+.index-sayisal-item .ins-inner-box h2{
+    font-size: 120px;
+}
+.index-sayisal-item .ins-inner-box p{
+    font-size: 20px;
+}
+
+ @media (max-width: 600px) {
+     .duyuru-baslik-ve-tarih p{
+         font-size: 15px;
+     }
+     #index-sayisal-baslik{
+         font-size: 10px;
+     }
+     .index-sayisal-item .ins-inner-box h2{
+         font-size: 80px;
+     }
+     .index-sayisal-item .ins-inner-box p{
+         font-size: 15px;
+     }
+     .main-instagram.owl-carousel .owl-nav button.owl-prev{
+         background: none;
+     }
+     .main-instagram.owl-carousel .owl-nav button.owl-next{
+         background: none;
+     }
  }
 
  .duyuru-context{

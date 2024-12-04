@@ -445,6 +445,7 @@ mark {
     .img-fluid {
         margin-top: 22px;
         margin-bottom: -40px;
+        width: 100%;
     }
 }
 
