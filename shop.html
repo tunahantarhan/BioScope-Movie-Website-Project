@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <!-- Basic -->
 
 <head>
@@ -32,67 +32,6 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Firebase Config -->
-    <script type="module">
-        // Firebase modüllerini import et
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
-
-        // Firebase config
-        const firebaseConfig = {
-            apiKey: "AIzaSyB2Bl4_rYPPRirjjFqkbXQdGD50HrN77Rc",
-            authDomain: "bioscope-movie.firebaseapp.com",
-            databaseURL: "https://bioscope-movie-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "bioscope-movie",
-            storageBucket: "bioscope-movie.firebasestorage.app",
-            messagingSenderId: "1058421795792",
-            appId: "1:1058421795792:web:bc1de8b3e5ce6839cee7d5",
-            measurementId: "G-CDY4KPPX2G"
-        };
-
-        // Firebase'i başlat
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        // URL'den query parametresini al
-        function getQueryParameter(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param); // Parametre değerini döndür
-        }
-
-        async function fetchProductDetailsByQuery() {
-            const productKey = getQueryParameter('product'); // URL'den 'product' parametresini al
-            if (!productKey) {
-                console.error("Ürün anahtarı URL'de bulunamadı.");
-                return;
-            }
-
-            const productRef = ref(database, 'products/' + productKey);
-
-            try {
-                const snapshot = await get(productRef);
-                if (snapshot.exists()) {
-                    const productData = snapshot.val();
-
-                    // Carousel görsellerini doldur
-                    document.getElementById('image-url').src = productData['image-url'];
-
-                    // Ürün detaylarını doldur
-                    document.getElementById('product-name').innerText = productData.name;
-                    document.getElementById('price').innerText = productData.price;
-                    document.getElementById('description').innerText = productData.description;
-                } else {
-                    console.error("Ürün verisi bulunamadı.");
-                }
-            } catch (error) {
-                console.error("Veri çekilirken hata oluştu:", error);
-            }
-        }
-
-        // Fonksiyonu çalıştır
-        fetchProductDetailsByQuery();
-    </script>
 
     <style>
         @media (max-width: 992px) {
@@ -153,6 +92,7 @@
                                     <i class="fab fa-opencart"></i> Hepsi BioScope'ta sizlerle!
                                 </li>
                             </ul>
+                            <a href="admin-dashboard.html" target="_blank"><i class="fa fa-pen" style="border: 2px solid #454545; padding: 5px"></i></a>
                         </div>
                     </div>
                 </div>
@@ -184,15 +124,15 @@
                             <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown" style="color: #dbcf61; background: transparent; border: 1px solid #dbcf61">ÜRÜNLERİMİZ ▼</a>
                             <ul class="dropdown-menu">
                                 <li><a href="gallery.html">Ürün Galerisi</a></li>
-                                <li><a href="numbers.html">Sayısal Veriler</a></li>
                                 <li><a href="shop.html">Ürün Alışverişi</a></li>
-                                <li><a href="checkout.html">Ödeme</a></li>
+                                <li><a href="numbers.html">Sayısal Veriler</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">BİRİMLERİMİZ ▼</a>
                             <ul class="dropdown-menu">
                                 <li><a href="contact-us.html">Bizi Değerlendirin</a></li>
+                                <li><a href="announcements.html">Duyurular</a></li>
                                 <li><a href="shipping-gallery.html">Anlaşmalı Kargo Firmaları</a></li>
                             </ul>
                         </li>
@@ -246,6 +186,41 @@
     <div class="shop-box-inner">
         <div class="container">
             <div class="row">
+                <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
+                    <div class="product-categori">
+                        <div class="filter-sidebar-left">
+                            <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
+                                <h4 style="border-top: 1px solid #454545; border-bottom: 1px solid #454545; padding: 16.5px 0 16.5px 10px"><b>Türlere Göre Filtrele <i class="fa fa-filter"></i> </b></h4>
+                                <hr>
+                                <div class="list-group-collapse sub-men">
+                                    <a class="list-group-item list-group-item-action" href="#sub-men1" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1">Türler <small class="text-muted">(16)</small>
+                                    </a>
+                                    <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
+                                        <div class="list-group">
+                                            <button class="list-group-item list-group-item-action" data-filter="*">Tümü <small class="text-muted">(18)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".dram">Dram <small class="text-muted">(11)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".komedi">Komedi <small class="text-muted">(6)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".romantik">Romantik <small class="text-muted">(10)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".gizem">Gizem <small class="text-muted">(1)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".savas">Savaş <small class="text-muted">(1)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".macera">Macera <small class="text-muted">(3)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".tarih">Tarih <small class="text-muted">(1)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".suc">Suç <small class="text-muted">(3)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".muzikal">Müzikal <small class="text-muted">(1)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".aksiyon">Aksiyon <small class="text-muted">(2)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".fantastik">Fantastik <small class="text-muted">(2)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".animasyon">Animasyon <small class="text-muted">(2)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".korku">Korku <small class="text-muted">(2)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".gerilim">Gerilim <small class="text-muted">(1)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".noir">Noir <small class="text-muted">(1)</small></button>
+                                            <button class="list-group-item list-group-item-action" data-filter=".psikolojik">Psikolojik <small class="text-muted">(1)</small></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
                     <div class="right-product-box">
                         <div class="product-item-filter row">
@@ -960,41 +935,6 @@
                         </div>
                     </div>
                 </div>
-				<div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
-                    <div class="product-categori">
-                        <div class="filter-sidebar-left">
-                            <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
-                                <h4 style="border-top: 1px solid #454545; border-bottom: 1px solid #454545; padding: 16.5px 0 16.5px 10px"><b>Türlere Göre Filtrele <i class="fa fa-filter"></i> </b></h4>
-                                <hr>
-                                <div class="list-group-collapse sub-men">
-                                    <a class="list-group-item list-group-item-action" href="#sub-men1" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1">Türler <small class="text-muted">(16)</small>
-								</a>
-                                    <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
-                                        <div class="list-group">
-                                            <button class="list-group-item list-group-item-action" data-filter="*">Tümü <small class="text-muted">(18)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".dram">Dram <small class="text-muted">(11)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".komedi">Komedi <small class="text-muted">(6)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".romantik">Romantik <small class="text-muted">(10)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".gizem">Gizem <small class="text-muted">(1)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".savas">Savaş <small class="text-muted">(1)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".macera">Macera <small class="text-muted">(3)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".tarih">Tarih <small class="text-muted">(1)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".suc">Suç <small class="text-muted">(3)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".muzikal">Müzikal <small class="text-muted">(1)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".aksiyon">Aksiyon <small class="text-muted">(2)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".fantastik">Fantastik <small class="text-muted">(2)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".animasyon">Animasyon <small class="text-muted">(2)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".korku">Korku <small class="text-muted">(2)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".gerilim">Gerilim <small class="text-muted">(1)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".noir">Noir <small class="text-muted">(1)</small></button>
-                                            <button class="list-group-item list-group-item-action" data-filter=".psikolojik">Psikolojik <small class="text-muted">(1)</small></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -1108,7 +1048,6 @@
     <script src="js/jquery.superslides.min.js"></script>
     <script src="js/bootstrap-select.js"></script>
     <script src="js/inewsticker.js"></script>
-    <script src="js/bootsnav.js"></script>
     <script src="js/images-loded.min.js"></script>
     <script src="js/isotope.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
