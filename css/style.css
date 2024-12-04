@@ -1239,13 +1239,12 @@
      z-index: 0;
 }
  .main-instagram.owl-carousel .owl-nav button.owl-prev{
-     background: #000000;
      position: absolute;
      z-index: 1;
      display: block;
      height: 100%;
      width: 50px;
-     line-height: 0px;
+     line-height: 0;
      font-size: 24px;
      cursor: pointer;
      color: #ffffff;
@@ -1253,19 +1252,18 @@
      padding: 0;
      margin-top: 0;
      opacity: 1;
-     left: 0px;
+     left: 0;
      -webkit-transition: all 0.3s ease;
      -o-transition: all 0.3s ease;
      transition: all 0.3s ease;
 }
  .main-instagram.owl-carousel .owl-nav button.owl-next{
-     background: #000000;
      position: absolute;
      z-index: 1;
      display: block;
      height: 100%;
      width: 50px;
-     line-height: 0px;
+     line-height: 0;
      font-size: 24px;
      cursor: pointer;
      color: #ffffff;
@@ -1273,13 +1271,13 @@
      padding: 0;
      margin-top: 0;
      opacity: 1;
-     right: 0px;
+     right: 0;
      -webkit-transition: all 0.3s ease;
      -o-transition: all 0.3s ease;
      transition: all 0.3s ease;
 }
  .main-instagram.owl-carousel .owl-nav button.owl-next:hover, .main-instagram.owl-carousel .owl-nav button.owl-prev:hover{
-     background: #dbcf61;
+     background: black;
  }
  .ins-inner-box{
      position: relative;
@@ -1607,6 +1605,25 @@
     font-size: 20px;
 }
 
+#duyuru-sutunlar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center
+}
+
+#duyuru-sutunlar-sol{
+    display: inline-block;
+    padding-bottom: 20px;
+    width: 50%
+}
+
+#duyuru-sutunlar-sag{
+    display: inline-block;
+    padding-bottom: 20px;
+    width: 50%
+}
+
+
  @media (max-width: 600px) {
      .duyuru-baslik-ve-tarih p{
          font-size: 15px;
@@ -1620,13 +1637,24 @@
      .index-sayisal-item .ins-inner-box p{
          font-size: 15px;
      }
-     .main-instagram.owl-carousel .owl-nav button.owl-prev{
-         background: none;
-     }
-     .main-instagram.owl-carousel .owl-nav button.owl-next{
-         background: none;
-     }
+
+     .duyuru-butonlar button{
+         font-size: 17px;
+     };
  }
+@media (max-width: 400px) {
+    #duyuru-sutunlar{
+        display: flex;
+        flex-direction: column;
+    }
+    #duyuru-sutunlar-sol{
+        width: 100%;
+        padding-bottom: 0;
+    }
+    #duyuru-sutunlar-sag{
+        width: 100%;
+    }
+}
 
  .duyuru-context{
      border-left: 1px solid #454545;
@@ -1820,7 +1848,7 @@
 }
 @media (max-width: 990px){
     p{
-        font-size: 23px;
+        font-size: 19px;
     }
     .service-block-inner p{
         font-size: 18px;
@@ -1831,7 +1859,7 @@
 }
 @media (max-width: 769px){
     p{
-        font-size: 23px;
+        font-size: 17px;
     }
     .service-block-inner p{
         font-size: 18px;
@@ -1842,7 +1870,7 @@
 }
  @media (max-width: 576px){
      p{
-         font-size: 20px;
+         font-size: 17px;
      }
      .service-block-inner p{
          font-size: 18px;
@@ -1853,7 +1881,8 @@
  }
 @media (max-width: 380px){
      p{
-         font-size: 24px;
+         font-size: 18px;
+         margin: 0 10px 0 10px;
      }
      .service-block-inner p{
          font-size: 20px;
