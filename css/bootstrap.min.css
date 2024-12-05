@@ -445,7 +445,6 @@ mark {
     .img-fluid {
         margin-top: 22px;
         margin-bottom: -40px;
-        width: 65%;
         height: 250px;
     }
 }
@@ -453,7 +452,6 @@ mark {
     .img-fluid {
         margin-top: 22px;
         margin-bottom: -40px;
-        width: 50%;
         height: 300px;
     }
 }

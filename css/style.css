@@ -1628,6 +1628,10 @@
     padding: 20px
 }
 
+.total a:hover{
+    color: #dbcf61;
+}
+
 .admin-band{
     display: flex;
     padding: 20px

@@ -9,3 +9,7 @@ function defaultColumn(){
 function revertColumn(){
     document.getElementById("duyuru-container-ann").style.flexDirection = "column-reverse";
 }
+
+document.getElementById("siparis-ver").addEventListener("click", function(){
+    alert("Siparişiniz alındı! Sipariş takibi için size gönderdiğimiz e-postayı inceleyin!")
+})
