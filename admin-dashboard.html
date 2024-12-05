@@ -148,10 +148,10 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 col-page-header">
-        <h2>SAYISAL VERİLER</h2>
+        <h2>ADMİN ARAYÜZÜ</h2>
         <ul class="breadcrumb col-page-header-breadcrumb">
           <li class="breadcrumb-item"><a href="index.html"><u>Anasayfa</u></a></li>
-          <li class="breadcrumb-item active">Sayısal Veriler</li>
+          <li class="breadcrumb-item active">Admin Arayüzü</li>
         </ul>
       </div>
     </div>
@@ -160,7 +160,62 @@
 <!-- End All Title Box -->
 
 <!-- Start ADMİN -->
-
+<div class="all-container" style="padding-top: 80px; width: 90%; margin: auto">
+  <div class="sutunlar-container">
+    <div class="admin-sol-sutun">
+      <div class="admin-sol-sutun-sol-sutun">
+        <div class="admin-duyuru-ekle" style="padding: 10px; height: 100%">
+          <h3><u><b>Duyuru Ekle</b></u></h3>
+          <form id="contactForm">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Duyuru Başlığı" required data-error="Lütfen duyuru başlığı giriniz.">
+                  <div class="help-block with-errors"></div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <textarea class="form-control" id="message" placeholder="Duyuru İçeriği" rows="10" required data-error="Lütfen duyuru içeriği giriniz."></textarea>
+                  <div class="help-block with-errors"></div>
+                </div>
+                <div class="submit-button text-center" style="display: block; float: left">
+                  <button class="btn hvr-hover" id="ek-ekle" style="width: 100%; text-align: left; color: white; margin-bottom: 10px; background: white; color: gray; border: 1px solid #b5b3b3; font-weight: normal"><i class="fa fa-folder-open" style="margin-right: 5px"></i><i class="fa fa-plus"></i></button><br>
+                  <button class="btn hvr-hover" id="submit" type="submit">Yayınla</button>
+                  <div id="msgSubmit" class="h3 text-center hidden"></div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="admin-sol-sutun-sag-sutun">
+        <div class="ust-satir" style="display: flex; justify-content: center; height: 50%">
+          <div class="admin-a-box"><p class="admin-p"><i class="fa fa-plus"></i> ÜRÜN EKLE</p></div>
+          <div class="admin-a-box"><p class="admin-p"><i class="fa fa-spinner"></i> ÜRÜN YÖNET</p></div>
+      </div>
+        <div class="alt-satir" style="display: flex; justify-content: center; height: 50%">
+          <div class="admin-a-box"><p class="admin-p"><i class="fa fa-user"></i> KULLANICI YÖNET</p></div>
+          <div class="admin-a-box"><p class="admin-p"><i class="fa fa-box-open"></i> SİPARİŞLER</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="admin-sayi-verileri-grafikler">
+      <div id="admin-pasta-grafigi-2d" class="admin-item" style="border: 1px solid #454545; height: 120px;"></div>
+      <div id="admin-sutun-grafigi" class="admin-item" style="border: 1px solid #454545; margin-top: 10px; height: 120px"></div>
+      <div id="admin-pasta-grafigi" class="admin-item" style="border: 1px solid #454545; margin-top: 10px; height: 120px"></div>
+    </div>
+  </div>
+  <div class="admin-band">
+    <div class="admin-band-context">
+      <p><i class="fa fa-user-astronaut" style="margin-right: 10px"></i><u>Anlık Kullanıcı</u> <span style="color: #12bf12"><br> 698 <i class="fa fa-arrow-alt-circle-up"></i></span></p>
+      <p><i class="fa fa-boxes" style="margin-right: 10px"></i><u>Toplam Sipariş (Ay)</u> <span style="color: #12bf12"><br> 9634 <i class="fa fa-arrow-alt-circle-up"></i></span></p>
+      <p><i class="fa fa-money-bill-wave" style="margin-right: 10px"></i><u>Kâr/Zarar</u> <span style="color: #12bf12"><br>  %68 <i class="fa fa-arrow-alt-circle-up"></i></span></p>
+      <p><i class="fa fa-handshake" style="margin-right: 10px"></i><u>İş Ortakları</u> <span style="color: #12bf12"><br> 129</i></span></p>
+    </div>
+  </div>
+</div>
 <!-- End ADMİN -->
 
 <!-- Start Footer  -->
@@ -276,9 +331,99 @@
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/baguetteBox.min.js"></script>
 <script src="js/form-validator.min.js"></script>
-<script src="js/contact-form-script.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/self.js"></script>
+
+<!----------------------------------CHART FUNCTIONS----------------------------------->
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+  /* Google Charts Yüklemesi */
+  google.charts.load('current',{packages:['corechart']});
+
+  google.charts.setOnLoadCallback(drawChartPasta2D);
+
+  function drawChartPasta2D() {
+    const data = google.visualization.arrayToDataTable([
+      ['Genre', 'Film Sayısı'],
+      ['Komedi', 6],
+      ['Dram', 11],
+      ['Romantik', 3],
+      ['Gizem', 1],
+      ['Savaş', 1],
+      ['Macera', 3],
+      ['Tarih', 1],
+      ['Suç', 3],
+      ['Müzikal', 1],
+      ['Aksiyon', 2],
+      ['Fantastik', 2],
+      ['Animasyon', 2],
+      ['Korku', 2],
+      ['Gerilim', 1],
+      ['Noir', 1],
+      ['Psikolojik', 1]
+    ]);
+
+    const options = {
+      title: "Filmlerin Türlere Göre Dağılımı",
+    };
+
+    const chart = new google.visualization.PieChart(document.getElementById('admin-pasta-grafigi-2d'));
+    chart.draw(data, options);
+  }
+  /***********************************************************************************/
+  google.charts.setOnLoadCallback(drawChartSutun);
+
+  function drawChartSutun() {
+    const data = google.visualization.arrayToDataTable([
+      ['Dönem', 'Film Sayısı'],
+      ['Daha Eski', 1],
+      ["70'ler", 1],
+      ["80'ler", 2],
+      ["90'lar", 3],
+      ["00'lar", 5],
+      ["10'lar", 4],
+      ["20'ler", 2]
+    ]);
+
+    const options = {
+      title: 'Filmlerin Dönemlere Göre Dağılımları'
+    };
+
+    const chart = new google.visualization.BarChart(document.getElementById('admin-sutun-grafigi'));
+    chart.draw(data, options);
+  }
+
+  /***********************************************************************************/
+
+  google.charts.setOnLoadCallback(drawChartPasta);
+
+  function drawChartPasta() {
+    const data = google.visualization.arrayToDataTable([
+      ['Ülkeler', 'Film Sayısı'],
+      ['ABD', 11],
+      ['Birleşik Krallık', 3],
+      ['Fransa', 2],
+      ['Türkiye', 1],
+      ['Avusturya', 1],
+      ['Yeni Zelanda', 1],
+      ['Japonya', 1],
+      ['Danimarka', 1],
+      ['Almanya', 1]
+    ]);
+
+    const options = {
+      title: 'Filmlerin Ülkelere Göre Dağılımı',
+      is3D: true
+    };
+
+    const chart = new google.visualization.PieChart(document.getElementById('admin-pasta-grafigi'));
+    chart.draw(data, options);
+  }
+
+  drawChartPasta2D();
+  drawChartSutun();
+  drawChartPasta();
+</script>
 
 </body>
 </html>

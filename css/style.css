@@ -1623,10 +1623,106 @@
     width: 50%
 }
 
- @media (max-width: 750px) {
+.sutunlar-container{
+    display: flex;
+    padding: 20px
+}
+
+.admin-band{
+    display: flex;
+    padding: 20px
+}
+.admin-band-context{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #454545;
+    padding: 20px;
+}
+
+.admin-sol-sutun{
+    width: 80%;
+    margin-right: 10px;
+    display: flex;
+}
+.admin-sag-sutun{
+    width: 20%;
+}
+
+.admin-sol-sutun-sol-sutun{
+    border: 1px solid #454545;
+    margin-right: 10px;
+    width: 40%;
+    display: block;
+}
+
+.admin-sol-sutun-sag-sutun{
+    border: 1px solid #454545;
+    width: 60%;
+}
+
+.admin-a-box{
+    width: 200px;
+    height: 200px;
+    padding: 20px;
+    border: 1px solid #454545;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease, a 0.3s ease;
+}
+.admin-a-box:hover{
+    background: #454545;
+}
+.admin-a-box:hover p{
+    color: #dbcf61;
+}
+
+.admin-p{
+    text-align: center;
+    text-decoration: none;
+}
+.admin-sayi-verileri-grafikler{
+    width:50%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    border: 1px solid #454545;
+    padding: 10px;
+}
+
+ @media (max-width: 1055px) {
      #image-url, #image-url-2, #image-url-3{
          height: 200px;
          width: 50%;
+     }
+
+     .sutunlar-container{
+         display: block
+     }
+     .admin-sol-sutun{
+         width: 100%;
+         margin-bottom: 10px;
+         display: block;
+     }
+     .admin-sag-sutun{
+         width: 100%;
+     }
+
+     .admin-sayi-verileri-grafikler{
+         width:100%;
+         display: flex;
+     }
+
+     .admin-sol-sutun-sol-sutun{
+         width: 100%;
+         margin-bottom: 10px;
+     }
+
+     .admin-sol-sutun-sag-sutun{
+         width: 100%;
      }
  }
 
@@ -1647,7 +1743,17 @@
 
      .duyuru-butonlar button{
          font-size: 17px;
-     };
+     }
+
+     .admin-band-context p{
+         font-size: 12px;
+         text-align: center;
+     }
+
+     .admin-item{
+         height: 10px;
+         width: 80%;
+     }
  }
 
 #image-url, #image-url-2, #image-url-3{
