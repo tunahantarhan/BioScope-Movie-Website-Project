@@ -1623,6 +1623,13 @@
     width: 50%
 }
 
+ @media (max-width: 750px) {
+     #image-url, #image-url-2, #image-url-3{
+         height: 200px;
+         width: 50%;
+     }
+ }
+
 
  @media (max-width: 600px) {
      .duyuru-baslik-ve-tarih p{
@@ -1642,7 +1649,13 @@
          font-size: 17px;
      };
  }
-@media (max-width: 400px) {
+
+#image-url, #image-url-2, #image-url-3{
+    height: 500px;
+    width: 80%;
+}
+
+@media (max-width: 500px) {
     #duyuru-sutunlar{
         display: flex;
         flex-direction: column;
@@ -1653,6 +1666,10 @@
     }
     #duyuru-sutunlar-sag{
         width: 100%;
+    }
+
+    #image-url, #image-url-2, #image-url-3{
+        height: 500px;
     }
 }
 
