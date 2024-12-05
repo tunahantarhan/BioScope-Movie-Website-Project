@@ -1605,6 +1605,30 @@
     font-size: 20px;
 }
 
+#joey-banner{
+    display: flex;
+    justify-items: center;
+}
+#joey-img{
+    height: 50%;
+}
+#trip-to-the-moon-img{
+    height: 100%;
+}
+@media (max-width: 500px){
+    #joey-banner{
+        display: block;
+    }
+    #joey-img{
+        height: 70%;
+        width: 70%;
+    }
+    #trip-to-the-moon-img{
+        height: 90%;
+        width: 80%;
+    }
+}
+
 #duyuru-sutunlar{
     display: flex;
     flex-direction: row;
@@ -1614,13 +1638,13 @@
 #duyuru-sutunlar-sol{
     display: inline-block;
     padding-bottom: 20px;
-    width: 50%
+    width: 100%
 }
 
 #duyuru-sutunlar-sag{
     display: inline-block;
     padding-bottom: 20px;
-    width: 50%
+    width: 100%
 }
 
 .sutunlar-container{
@@ -1839,11 +1863,13 @@
 	 float: right;
      border-radius: 0;
 }
+
  @media (max-width: 600px){
      .all-title-box .breadcrumb{
          margin-top: 15px;
      }
  }
+
  .all-title-box .breadcrumb li{
      display: inline-block;
      color: #000000;
