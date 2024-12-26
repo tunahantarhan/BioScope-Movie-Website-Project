@@ -2,34 +2,34 @@ BioScope Movie Website
 
 Çevrimiçi fiziksel film satın alma platformu.
 
-##1.  ÖZET
+## 1.  ÖZET
     
 
 BioScope Movie websitesi, 2024 yılında okul projem doğrultusunda ortaya çıkmış bir fikirdir. Henüz lisans öğrenciliği aşamasında olan ve programlama / uygulama geliştirme adımlarını daha çok web tabanlı ve tasarımsal olarak websitesi geliştirme şeklinde atan bir öğrenci tarafından geliştirilmiş bir proje websitesidir. Bu açıdan bu şekilde bir website projesi üzerinde çalışmanın ilerideki çalışma hayatı için güzel bir ön hazırlık olduğu kanaatindeyim. Bu websitesinin misyonu film severlere fiziksel olarak film satışı gerçekleştirmek, ilgi duydukları filmlere fiziksel ulaşım imkanı sağlamak ve film izleme alışkınlığındaki eski klasik sinefil tadı arayan sinefilleri bu filmlerin fiziksel formatıyla buluşturmaktır. Kullanıcılara filmografi ufuklarını genişletmek, sevdikleri favori yönetmenlerinin, oyuncularının filmlerin ulaşmak ve filmlerin takibinde eski tadı yakalama imkanı sunar. Bu websitesinde kullanıcılar ürünleri inceleyebilir, ilgili bilgiler edinebilir, sepetine ekleyebilir, güvenli bir şekilde ödemesini yapabilir. Websitesi JetBrains ekibinin web sayfaları oluşturmak için en optimal programlardan biri olan Webstorm IDE’si kullanılarak HTML5,CSS ve JavaScript yazılım dilleri ile geliştirilmiştir.
 
-##2.  GİRİŞ
+## 2.  GİRİŞ
     
 
 BioScope move websitesi, filmlere fiziksel formatta ulaşımın dijital ortamda kolayca sağlandığı bir çevrimici mağaza websitesidir. BioScope Movie, kullanıcılar ve özellikle de filmlerin takibinde, sinemanın evlerimize konuk olmasındaki o eski klasik tadı, dokuyu arayanlar için geliştirilmiş bir websitesidir. BioScope Movie sinefilleri bir araya toplayan bir çevrimici platformdur. Günümüzde neredeyse her şey gibi filmlere ulaşmak da fazlasıyla büyük bir oranda “streaming” platformları ile birlikte dijitalleşmiştir. Bu gelişen ve büyüyen dijital ortamda filmseverlerin fiziksel olarak klasik dokuyu yakalama isteklerine karşılık vermek için böyle bir platformun arayışı geniş kitleler arasında ortaya çıkmıştır. Standart kullanıcılığın yanında koleksiyonerler için de oldukça büyük bir hizmet sunan BioScope Movie, çok geniş bir dönem/tarih skalasında filmlere ev sahipliği yapmaktadır. Büyük sayıda özel koleksiyonluk ürün versiyonları ile  geniş bir alışveriş yelpazesi sunmaktadır. BioScope Movie, kullanıcı dostu ve yüksek erişilebilirlikteki arayüzü, basit ve güvenilir ödeme sistemiyle filmlerin alışverişinin keyfini ve erişilebilirliğini çok yüksek bir oranda arttırmaktadır. 
 
-###A.  _Misyon_
+### A.  _Misyon_
     
 
 BioScope Movie projesi başlangıcında belirtildiği üzere film severlere, film takibinde o eski klasik dokuyu arayan film tutkunlarını hedef alan, isteklerine ve marketteki eksiği göz önünde bulundurarak buna yönelik bir hizmet sağlama amacıyla doğmuş bir projedir. BioScope Movie projesinin misyonu hedef kitlenin ve kullanıcıların fiziksel formatta (DVD) filmlere ulaşmasını, güvenli bir şekilde çevrimici olarak arzu ettikleri ürünlerin satın alımını ve alışverişini gerçekleştirerek mutlu ve unutulmaz bir kullanım deneyimi yaşamalarıdır. Kullanıcılar arasında bu niş kalmış alanda en yüksek memnuniyet seviyesine ulaşmak BioScope Movie için nihai hedeftir. Websitesi üzerinden ürünlerin detaylı bir şekilde incelenmesi, hızlıca sepete eklenmesi ve satın alım işleminin güvenli bir şekilde tamamlanması misyonu aranmış ve karşılanmıştır. Film konusunda her yaştan ve zevkten,  çok geniş bir kitleye ulaşmak amaçlanmıştır.
 
-##3. YÖNTEM
+## 3. YÖNTEM
     
 
 BioScope Movie websitesi, filmleri DVD olarak  fiziksel formatta ama dijital ortamda satışa sunan bir websitesi olma özelliğiyle Webstorm IDE üzerinden geliştirilmiştir. Proje isterleri doğrultusunda en uygun optimal uyum sağlayacak olan ücretsiz şablon detaylıca aranarak, uzun göz gezdirmeler sonucunda seçilmiştir. Başlangıçta bir organik meyve/sebze satış websitesi olan seçilen şablon, projeye uygun bir şekilde konfigüre edilerek ve geliştirmeler/eklemeler yapılarak bugünkü son hali olan “fiziksel film satış sitesi” formuna kavuşmuştur. Kullanıcı dostu, göze hitap eden, özenlice tasarlanmış arayüzü ve hızlı işlem kapasitesi gibi özellikleriyle; filmseverlerin, filmlere ulaşmadaki o eski dokuyu arayan sinefil kullanıcıların çevrimici bir şekilde kolayca fiziksel filme ulaşması sağlamaktadır.
 
 Bu bölümde projenin geliştirilmesi sırasında kullanılan teknolojileri, programları, araçları, işleyiş modelleri ve iş akışları hakkında çeşitli bilgiler sunulacaktır.
 
-###A.  _Geliştirme Ortamı ve Kullanılan Araçlar_
+### A.  _Geliştirme Ortamı ve Kullanılan Araçlar_
     
 
 BioScope Movie websitesi, tüm websiteler gibi web tarayıcıları için geliştirilmiş bir websitesidir ve web için yazılım geliştirmede en yaygın araçlardan biri olan, köklü usta JetBrains ekibi tarafından geliştirilen _Webstorm_ IDE’si kullanılarak programlanmıştır. Websitesinin geliştirildiği ana ortam olan Webstorm’da ilgili CSS layout tasarımları ve HTML & JavaScript ile yazılmış iş akışı yazılımı ile websitesi her açıdan optimal bir performans vermektedir. Bu programlama sırasında yine web programlama konusunda ve genel programlama dilleri arasında en popüler yaklaşımlardan biri olan klasik dev üçlü HTML/CSS/JavaScript yazılım dilleri tercih edilmiştir. Çok köklü bir üçlü olan bu yazılım dilleri birbirleriyle olan “ironik trio" uyumu ile güçlü, güvenilir ve önerilen bir yaklaşımıdır. Bu dillerin gelişimi çok uzun yıllardan beridir devam etmiştir ve köklü tarihleri boyunca ilk halleriyle son halleri arasında devasa gelişmeler yaşanmıştır. Kullanıcı-websitesi arasındaki deneyimin keyfi her geçen yılda daha da arttırılmıştır. Yine alanında ikonik bir yaklaşım olan Firebase sisteminin Realtime Database teknolojisi sayesinde sistemde filmler in bilgileri başarılı bir şekilde bulut sisteminde saklanmıştır ve  ücretli bir sistem sunan Firebase Firestore Storage’ın alternatifi olarak Supabase veritabanı depolama sisteminde de ilgili filmlerin görselleri, website içerisinde kullanılan görseller tutulmuştur. Böylece hızlı ve akıcı bir site deneyimi, yükleme süreleri alınmıştır.
 
-###B.  _Kullanıcı Arayüzü Tasarımı (UI/UX)_
+### B.  _Kullanıcı Arayüzü Tasarımı (UI/UX)_
     
 
 BioScope Movie websitesinde kullanıcı arayüzü (UI) tasarımı tarafında ana olarak kullanıcı dostu olması, göze hitap ederliği, kendine has bir renk şeması, estetik düzen, ve kullanıcı deneyimi (UX) göz önünde bulundurularak hayata geçmiş ve geliştirilmiştir. Film severler website içerisinden diledikleri filmin detayını rahatça inceleyebilir, her filmin dinamik bir şekilde hazırlanmış kendi özel ürün detayında detaylarına göz gezdirebilir, sepete ürünleri ekleyebilir, güvenli bir şekilde ödemesini yapabilir ve sipariş işlemini güvenli bir şekilde tamamlayabilir. Tüm bu işlemlerde kolay ulaşılabilirlik ve estetik göz önünde bulundurulan ana etkenlerdir. Tasarımdaki bahsedilen unsurlar:
@@ -67,12 +67,12 @@ BioScope Movie websitesinde kullanıcı arayüzü (UI) tasarımı tarafında ana
 *   İletişim Sayfası : İletişim sayfasında kullanıcıyı bir mesaj iletme formu ekranı karşılar. Bu ekrandan isim, e-posta adresi, mesaj başlığı ve mesaj girmeye açık olan “input” kutuları istenildiği şekilde doldurulur ve ilgili mesaj [bioscopemove\_iletisim@gmail.com](mailto:bioscopemove_iletisim@gmail.com) adresine iletilir. Burası “.php” kullanılan tek kısımdır. Bu sayfanın yan kısmında ise “Adresimiz & İletişim Bilgilerimiz” başlıklı bir kutucuk bulunur. Bu kutucukta firmanın bulunduğu konumun Google Maps’ten alınmış bir “embbeded” harita penceresi bulunur. Devamında iletişim için adres, telefon ve e-posta bilgileri yine bu kısımda mevcuttur. Son olarak “seçili filmler” kısmı sayfa sonunda kullanıcının ilgili mesajını yolladıktan sonra göz atması adına bulunur.
     
 
-###C.  _Admin Arayüzü Tasarımı_
+### C.  _Admin Arayüzü Tasarımı_
     
 
 BioScope Movie sitesinin admin paneline baktığımızda kutucuklara ayrılmış kısımlar karşımıza çıkmaktadır. 3 ana kutucuğa ayrılan fonksiyonel kısımda en solda “Duyuru Ekle”, ortada ürün ekle, yönet, kullanıcı yönet ve siparişler kutucuklarının olduğu alan bulunmakta ve en sağda da sayısal veriler kısmında karşımıza çıkan tarzda grafikler yer almaktadır. Duyuru ekle kısmında duyuru başlığı, duyuru içeriği girmek için halihazırda bulunan “input” kutularının yanında bir de “ek” ekleme butonu vardır. Yayınla butonuna tıklandığında ilgili duyurunun duyurular sayfasındaki listenin en üstüne gönderilmesi planlanır.
 
-##4.  Sonuç
+## 4.  Sonuç
     
 
 BioScope Movie websitesi, film severlerin klasik bir şekilde fiziksel olarak film satın alma konusundaki arayışlarının dijital ortamda karşılandığı bir platform projesidir. Bu websitesi klasik ve eski dokuyu içinde bulunduran fiziksel kutulu filmlerin satışını kolaylaştırmayı amaçlayan başarılı bir projedir. Kullanıcı dostu, hızlı, optimal ve güvenli arayüzü, senkronize gelişmiş veritabanı bağlantıları, veri işleme yapısı ile sofistike ve modern bir websitesi konumunda bulunur. Firabase ve HTML/CSS/JavaScript yazılım dilleri gibi alanında en gelişmiş ve modern teknolojik imkanların yanında kültleşmiş yaklaşımları barındırması sayesinde diğer websitelerin önüne geçmeyi başarmıştır. Firebase sistemi ile ürünlerini entegre eden site doğal olarak modern yenilikçi, okunulabilir, rahat ve güvenli bir yapı sunar. Alanında en önde gelen ekiplerden JetBrains’in geliştirmiş olduğu IDE olan Webstorm kullanılarak geliştirilen websitesi en üst düzey verimli bir geliştirme ortamında hazırlanmıştır.
@@ -83,11 +83,10 @@ Sonuç olarak BioScope Movie websitesi; film alışverişini eski klasik yol üz
 
 İlerleyen süreçte yolumuza hız kesmeden başarıyla devam etmek istemekle birlikte, daha fazla özelliklerin eklenmesiyle, her geçen gün kullanıcı memnuniyet seviyesinin arttılmasıyla üstüne koyarak kararlı bir şekilde ilerleme hedefindeyiz. Bu websitesi, film endüstrisi ve pazarını dijital dünya ile bir araya getirmesi nedeniyle büyük bir projedir.
 
-##5.  Kaynakça
+## 5.  Kaynakça
     
-
-1.  W3 Schools, HTML
+- W3 Schools, HTML
     
-2.  W3 Schools, CSS
+- W3 Schools, CSS
     
-3.  W3 Schools, JavaScript
+- W3 Schools, JavaScript
